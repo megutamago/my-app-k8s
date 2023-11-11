@@ -1,0 +1,85 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minio
+  namespace: argocd
+spec:
+  project: cluster-wide-apps
+  source:
+    chart: minio
+    repoURL: https://charts.min.io/
+    targetRevision: 5.0.7
+    helm:
+      releaseName: minio
+      values: |
+        # Get root user/password from secret
+        existingSecret: minio-secret
+        
+        # Number of drives attached to a node
+        drivesPerNode: 1
+        # Number of MinIO containers running
+        replicas: 3
+        # Number of expanded MinIO clusters
+        pools: 1
+        # Persistence
+        persistence:
+          enabled: true
+          storageClass: "nfs-share"
+          accessMode: ReadWriteOnce
+          size: 10Gi
+        
+        # Resource request
+        resources:
+          requests:
+            memory: 1Gi
+        
+        # Minio Buckets
+        buckets:
+          - name: k8s-loki
+            policy: none
+          - name: k8s-tempo
+            policy: none
+        
+        # Minio Policies
+        policies:
+          - name: loki
+            statements:
+              - resources:
+                  - 'arn:aws:s3:::k8s-loki'
+                  - 'arn:aws:s3:::k8s-loki/*'
+                actions:
+                  - "s3:DeleteObject"
+                  - "s3:GetObject"
+                  - "s3:ListBucket"
+                  - "s3:PutObject"
+          - name: tempo
+            statements:
+              - resources:
+                  - 'arn:aws:s3:::k8s-tempo'
+                  - 'arn:aws:s3:::k8s-tempo/*'
+                actions:
+                  - "s3:DeleteObject"
+                  - "s3:GetObject"
+                  - "s3:ListBucket"
+                  - "s3:PutObject"
+                  - "s3:GetObjectTagging"
+                  - "s3:PutObjectTagging"
+        # Minio Users
+        users:
+          - accessKey: loki
+            existingSecret: minio-secret
+            existingSecretKey: lokiPassword
+            policy: loki
+          - accessKey: tempo
+            existingSecret: minio-secret
+            existingSecretKey: tempoPassword
+            policy: tempo
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: minio
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

@@ -1,0 +1,10 @@
+- name: wget
+  shell: wget https://github.com/grafana/k6/releases/download/v0.43.1/k6-v0.43.1-linux-amd64.deb
+
+- name: install
+  shell: apt install -y ./k6-v0.43.1-linux-amd64.deb
+
+- name: remove file
+  file: 
+    path: ./k6-v0.43.1-linux-amd64.deb
+    state: absent

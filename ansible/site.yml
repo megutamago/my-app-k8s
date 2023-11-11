@@ -1,0 +1,12 @@
+- name: dev
+  hosts: dev
+  gather_facts: no
+  user: user
+  become: yes
+  max_fail_percentage: 0
+  tasks:
+    - import_tasks : ./tasks/common.yml
+    - import_tasks : ./tasks/docker.yml
+    - import_tasks : ./tasks/fluent-bit.yml
+    - import_tasks : ./tasks/k6.yml
+    - import_tasks : ./tasks/node_exporter.yml
