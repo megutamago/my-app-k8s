@@ -59,6 +59,25 @@ helm install cilium cilium/cilium \
     --set k8sServiceHost=${KUBE_API_SERVER_VIP} \
     --set k8sServicePort=8443
 
+# ArgoCD case: PrivateRepository
+cat > ~/work/argocd_secret.yaml <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: private-repo-creds
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repo-creds
+stringData:
+  type: git
+  url: https://github.com/megutamago
+  password: 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
+  username: megutamago
+EOF
+
+kubectl apply -f ~/work/argocd_secret.yaml
+
+# ArgoCD Install
 helm repo add argo https://argoproj.github.io/argo-helm
 helm install argocd argo/argo-cd \
     --version 5.51.1 \
