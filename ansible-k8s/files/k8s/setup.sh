@@ -59,22 +59,16 @@ helm install cilium cilium/cilium \
     --set k8sServiceHost=${KUBE_API_SERVER_VIP} \
     --set k8sServicePort=8443
 
-# Case of private repo
-git config --global url.https://megutamago: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@github.com/.insteadOf https://github.com/
-git clone https://github.com/megutamago/my-app-k8s.git -b ${TARGET_BRANCH} ~/work/my-app-k8s
-
 # ArgoCD Install
 helm repo add argo https://argoproj.github.io/argo-helm
 helm install argocd argo/argo-cd \
     --version 5.51.1 \
     --create-namespace \
     --namespace argocd \
-    --values ~/work/my-app-k8s/k8s-manifests/argocd-helm-chart-values.yaml
-    #--values https://raw.githubusercontent.com/megutamago/my-app-k8s/"${TARGET_BRANCH}"/k8s-manifests/argocd-helm-chart-values.yaml
+    --values https://raw.githubusercontent.com/megutamago/my-app-k8s/"${TARGET_BRANCH}"/k8s-manifests/argocd-helm-chart-values.yaml
 helm install argocd argo/argocd-apps \
     --version 1.4.1 \
-    --values ~/work/my-app-k8s/k8s-manifests/argocd-apps-helm-chart-values.yaml
-    #--values https://raw.githubusercontent.com/megutamago/my-app-k8s/"${TARGET_BRANCH}"/k8s-manifests/argocd-apps-helm-chart-values.yaml
+    --values https://raw.githubusercontent.com/megutamago/my-app-k8s/"${TARGET_BRANCH}"/k8s-manifests/argocd-apps-helm-chart-values.yaml
 
 rm -rf ~/work/my-app-k8s
 
