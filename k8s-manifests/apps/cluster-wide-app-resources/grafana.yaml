@@ -21,8 +21,12 @@ spec:
             - name: Prometheus
               type: prometheus
               uid: Prometheus
-              url: http://prometheus-kube-prometheus-prometheus.monitoring:9090
               access: proxy
+              orgId: 1
+              url: http://prometheus-kube-prometheus-prometheus.monitoring:9090
+              basicAuth: false
+              version: 1
+              editable: false
               jsonData:
                 httpMethod: POST
                 manageAlerts: true
@@ -33,8 +37,12 @@ spec:
             - name: Loki
               type: loki
               uid: Loki
-              url: http://loki-gateway.logging
               access: proxy
+              orgId: 1
+              url: http://loki-gateway.logging
+              basicAuth: false
+              version: 1
+              editable: false
               jsonData:
                 maxLines: 1000
                 derivedFields:
@@ -48,9 +56,9 @@ spec:
             - name: Tempo
               type: tempo
               uid: Tempo
-              url: http://tempo-distributed-query-frontend.tracing:3100
               access: proxy
               orgId: 1
+              url: http://tempo-distributed-query-frontend.tracing:3100
               basicAuth: false
               version: 1
               editable: false

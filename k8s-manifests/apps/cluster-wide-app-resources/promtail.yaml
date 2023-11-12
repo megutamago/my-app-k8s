@@ -8,7 +8,7 @@ spec:
   source:
     chart: promtail
     repoURL: https://grafana.github.io/helm-charts
-    targetRevision: 6.9.3
+    targetRevision: 6.15.3
     helm:
       releaseName: promtail
       values: |
@@ -16,6 +16,23 @@ spec:
           clients:
             - url: http://loki-gateway.logging/loki/api/v1/push
               tenant_id: 1
+          snippets:
+            extraScrapeConfigs: |
+              - job_name: syslog
+                syslog:
+                  listen_address: 0.0.0.0:{{ .Values.extraPorts.syslog.containerPort }}
+                  labels:
+                    job: syslog
+                relabel_configs:
+                  - source_labels:
+                      - __syslog_message_hostname
+                    target_label: hostname
+                  - source_labels:
+                      - __syslog_message_app_name
+                    target_label: app
+                  - source_labels:
+                      - __syslog_message_severity
+                    target_label: level
   destination:
     server: https://kubernetes.default.svc
     namespace: logging
