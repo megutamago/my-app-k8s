@@ -8,4 +8,8 @@ iptables --flush
 iptables -tnat --flush
 systemctl start kubelet
 systemctl start docker
+
+# argocd password
+# id: admin
+# pw: admin
 ```

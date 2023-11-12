@@ -6,7 +6,7 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: https://github.com/megutamago/my-monitoring-system
+        repoURL: https://github.com/megutamago/my-app-k8s
         revision: main
         directories:
           - path: k8s-manifests/apps/cluster-wide-apps/*
@@ -18,7 +18,7 @@ spec:
     spec:
       project: cluster-wide-apps
       source:
-        repoURL: https://github.com/megutamago/my-monitoring-system
+        repoURL: https://github.com/megutamago/my-app-k8s
         targetRevision: main
         path: "{{path}}"
       destination:
@@ -48,7 +48,7 @@ metadata:
 spec:
   project: argocd-root
   source:
-    repoURL: https://github.com/megutamago/my-monitoring-system
+    repoURL: https://github.com/megutamago/my-app-k8s
     targetRevision: main
     path: k8s-manifests/apps/cluster-wide-app-resources
   destination:
@@ -76,7 +76,7 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: https://github.com/megutamago/my-monitoring-system
+        repoURL: https://github.com/megutamago/my-app-k8s
         revision: main
         directories:
           - path: k8s-manifests/apps/foo-test/*
@@ -88,7 +88,7 @@ spec:
     spec:
       project: foo-test
       source:
-        repoURL: https://github.com/megutamago/my-monitoring-system
+        repoURL: https://github.com/megutamago/my-app-k8s
         targetRevision: main
         path: "{{path}}"
       destination:
