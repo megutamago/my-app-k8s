@@ -57,3 +57,4 @@ apt-get install -y kubelet=${KUBE_VERSION} kubeadm=${KUBE_VERSION} kubectl=${KUB
 apt-mark hold kubelet kubeadm kubectl
 
 swapoff -a
+update-alternatives --set iptables /usr/sbin/iptables-legacy
