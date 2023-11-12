@@ -70,23 +70,21 @@ helm install argocd argo/argocd-apps \
     --version 1.4.1 \
     --values https://raw.githubusercontent.com/megutamago/my-app-k8s/"${TARGET_BRANCH}"/k8s-manifests/argocd-apps-helm-chart-values.yaml
 
-rm -rf ~/work/my-app-k8s
-
 # ArgoCD case: PrivateRepository
-cat > ~/work/argocd_secret.yaml <<EOF
-apiVersion: v1
-kind: Secret
-metadata:
-  name: private-repo-creds
-  namespace: argocd
-  labels:
-    argocd.argoproj.io/secret-type: repo-creds
-stringData:
-  type: git
-  url: https://github.com/megutamago
-  password: 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
-  username: megutamago
-EOF
+#cat > ~/work/argocd_secret.yaml <<EOF
+#apiVersion: v1
+#kind: Secret
+#metadata:
+#  name: private-repo-creds
+#  namespace: argocd
+#  labels:
+#    argocd.argoproj.io/secret-type: repo-creds
+#stringData:
+#  type: git
+#  url: https://github.com/megutamago
+#  password: <token>
+#  username: megutamago
+#EOF
 
 kubectl apply -f ~/work/argocd_secret.yaml
 
