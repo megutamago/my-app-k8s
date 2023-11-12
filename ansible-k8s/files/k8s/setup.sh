@@ -10,6 +10,7 @@ kubeadm config images pull
 
 curl -sS https://webinstall.dev/k9s | bash
 echo "source ~/.config/envman/PATH.env" >> ~/.bashrc
+rm -rf ~/Downloads
 
 KUBEADM_BOOTSTRAP_TOKEN=$(openssl rand -hex 3).$(openssl rand -hex 8)
 
@@ -55,14 +56,12 @@ helm repo add cilium https://helm.cilium.io/
 helm install cilium cilium/cilium \
     --version 1.14.3 \
     --namespace kube-system \
-    --set kubeProxyReplacement=strict \
     --set k8sServiceHost=${KUBE_API_SERVER_VIP} \
     --set k8sServicePort=8443
 
 # Case of private repo
 git config --global url.https://megutamago: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@github.com/.insteadOf https://github.com/
 git clone https://github.com/megutamago/my-app-k8s.git -b ${TARGET_BRANCH} ~/work/my-app-k8s
-cp -p ~/work/my-app-k8s/k8s-manifests/argocd-helm-chart-values.yaml 
 
 # ArgoCD Install
 helm repo add argo https://argoproj.github.io/argo-helm
@@ -76,6 +75,8 @@ helm install argocd argo/argocd-apps \
     --version 1.4.1 \
     --values ~/work/my-app-k8s/k8s-manifests/argocd-apps-helm-chart-values.yaml
     #--values https://raw.githubusercontent.com/megutamago/my-app-k8s/"${TARGET_BRANCH}"/k8s-manifests/argocd-apps-helm-chart-values.yaml
+
+rm -rf ~/work/my-app-k8s
 
 # ArgoCD case: PrivateRepository
 cat > ~/work/argocd_secret.yaml <<EOF
