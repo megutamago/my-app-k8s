@@ -31,11 +31,11 @@
     #- import_tasks : ./tasks/nfs-client.yml
     #- import_tasks : ./tasks/k8s-wk.yml
 
-#- name: k8s-wk-api
-#  hosts: k8s_wk_api
-#  gather_facts: no
-#  user: user
-#  become: yes
-#  max_fail_percentage: 0
-#  tasks:
-#    - import_tasks : ./tasks/openvpn.yml
+- name: k8s-wk-api
+  hosts: k8s_wk_api
+  gather_facts: no
+  user: user
+  become: yes
+  max_fail_percentage: 0
+  tasks:
+    #- import_tasks : ./tasks/openvpn.yml

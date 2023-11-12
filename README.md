@@ -12,4 +12,20 @@ systemctl start docker
 # argocd password
 # id: admin
 # pw: admin
+
+# grafana password
+# id: grafana
+# pw: grafana
+
+# minio password
+# id: minio
+# pw: minio123
+
+# IP
+# 192.168.11.140 argocd
+# 192.168.11.141 grafana
+# 192.168.11.142 prometheus
+# 192.168.11.143 minio
+# 192.168.11.144 loki
+# 192.168.11.145 tempo
 ```
