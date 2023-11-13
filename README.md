@@ -13,6 +13,7 @@ systemctl start docker
 # When I change it to
 Chain INPUT (policy ACCEPT)
 # it works.
+# 再起動で治った
 ```
 
 ```
