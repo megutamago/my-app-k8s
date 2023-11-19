@@ -86,7 +86,7 @@ helm install argocd argo/argocd-apps \
 #  username: megutamago
 #EOF
 
-kubectl apply -f ~/work/argocd_secret.yaml
+#kubectl apply -f ~/work/argocd_secret.yaml
 
 KUBEADM_UPLOADED_CERTS=$(kubeadm init phase upload-certs --upload-certs | tail -n 1)
 
