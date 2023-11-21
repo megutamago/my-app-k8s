@@ -42,3 +42,34 @@ Chain INPUT (policy ACCEPT)
 update-alternatives --config iptables
 update-alternatives --set iptables /usr/sbin/iptables-legacy
 ```
+
+https://ot-redis-operator.netlify.app/docs/installation/installation/
+https://qiita.com/kokohei39/items/f75a3ae2a0c97ae646c5
+```
+$ kubectl create namespace ot-operators
+$ helm repo add ot-helm https://ot-container-kit.github.io/helm-charts/
+$ helm install redis-operator ot-helm/redis-operator --namespace ot-operators
+$ helm install redis-sentinel ot-helm/redis-sentinel \
+  --set redissentinel.clusterSize=3  --namespace ot-operators \
+  --set redisSentinelConfig.redisReplicationName="redis-replication"
+
+kubectl -n ot-operators exec -it redis-sentinel-sentinel-0 /bin/bash
+redis-cli -p 26379 info
+```
+
+https://github.com/mysql/mysql-operator
+```
+$ helm repo add mysql-operator https://mysql.github.io/mysql-operator/
+$ helm repo update
+$ helm install mysql-operator mysql-operator/mysql-operator --namespace mysql-operator --create-namespace
+
+$ helm install mycluster mysql-operator/mysql-innodbcluster \
+    --set credentials.root.user='root' \
+    --set credentials.root.password='sakila' \
+    --set credentials.root.host='%' \
+    --set serverInstances=3 \
+    --set routerInstances=1 \
+    --set tls.useSelfSigned=true \
+    --namespace mynamespace \
+    --create-namespace
+```
