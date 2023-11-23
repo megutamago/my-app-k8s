@@ -50,7 +50,8 @@ $ kubectl create namespace ot-operators
 $ helm repo add ot-helm https://ot-container-kit.github.io/helm-charts/
 $ helm install redis-operator ot-helm/redis-operator --namespace ot-operators
 $ helm install redis-sentinel ot-helm/redis-sentinel \
-  --set redissentinel.clusterSize=3  --namespace ot-operators \
+  --set redissentinel.clusterSize=3 \
+  --namespace ot-operators \
   --set redisSentinelConfig.redisReplicationName="redis-replication"
 
 kubectl -n ot-operators exec -it redis-sentinel-sentinel-0 /bin/bash

@@ -50,7 +50,7 @@ spec:
   source:
     repoURL: https://github.com/megutamago/my-app-k8s
     targetRevision: main
-    path: k8s-manifests/apps/cluster-wide-app-resources
+    path: k8s-manifests/apps/cluster-wide-app-resources/*
   destination:
     server: https://kubernetes.default.svc
     namespace: 'cluster-wide-apps'
