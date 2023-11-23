@@ -153,3 +153,5 @@ nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
 -n kube-system \
 -f hoge.yml
 ```
+
+yamlがymlだと動かない
