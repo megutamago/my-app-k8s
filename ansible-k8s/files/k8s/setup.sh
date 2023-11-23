@@ -54,7 +54,7 @@ curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bas
 
 helm repo add cilium https://helm.cilium.io/
 helm install cilium cilium/cilium \
-    --version 1.14.3 \
+    --version 1.14.4 \
     --namespace kube-system \
     --set k8sServiceHost=${KUBE_API_SERVER_VIP} \
     --set k8sServicePort=8443

@@ -46,24 +46,24 @@
 
 # ------------------------------------- #
 
-- name: systemd
-  systemd:
-    name: kubelet
-    state: stopped
-  ignore_errors: yes
-
-- name: shell
-  shell: iptables --flush
-
-- name: shell
-  shell: iptables -tnat --flush
-
-- name: systemd
-  systemd:
-    name: kubelet
-    state: started
-  ignore_errors: yes
-
-- name: Reboot the machine (Wait for 5 min)
-  reboot:
-    reboot_timeout: 300
+#- name: systemd
+#  systemd:
+#    name: kubelet
+#    state: stopped
+#  ignore_errors: yes
+#
+#- name: shell
+#  shell: iptables --flush
+#
+#- name: shell
+#  shell: iptables -tnat --flush
+#
+#- name: systemd
+#  systemd:
+#    name: kubelet
+#    state: started
+#  ignore_errors: yes
+#
+#- name: Reboot the machine (Wait for 5 min)
+#  reboot:
+#    reboot_timeout: 300
