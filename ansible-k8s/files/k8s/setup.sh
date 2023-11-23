@@ -65,10 +65,10 @@ helm install argocd argo/argo-cd \
     --version 5.51.1 \
     --create-namespace \
     --namespace argocd \
-    --values https://raw.githubusercontent.com/megutamago/my-app-k8s/"${TARGET_BRANCH}"/k8s-manifests/argocd-helm-chart-values.yaml
+    --values https://raw.githubusercontent.com/megutamago/my-app-k8s/"${TARGET_BRANCH}"/k8s-manifests/argocd-helm-chart-values.yml
 helm install argocd argo/argocd-apps \
     --version 1.4.1 \
-    --values https://raw.githubusercontent.com/megutamago/my-app-k8s/"${TARGET_BRANCH}"/k8s-manifests/argocd-apps-helm-chart-values.yaml
+    --values https://raw.githubusercontent.com/megutamago/my-app-k8s/"${TARGET_BRANCH}"/k8s-manifests/argocd-apps-helm-chart-values.yml
 
 # ArgoCD case: PrivateRepository
 #cat > ~/work/argocd_secret.yaml <<EOF
