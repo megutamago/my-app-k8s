@@ -9,7 +9,6 @@
     - import_tasks : ./tasks/nfs-client.yml
     - import_tasks : ./tasks/k8s-cp.yml
     - import_tasks : ./tasks/parameter_and_refresh.yml
-    - import_tasks : ./tasks/parameter.yml
 
 - name: k8s-cp-join
   hosts: k8s_cp_join
@@ -34,4 +33,3 @@
     - import_tasks : ./tasks/nfs-client.yml
     - import_tasks : ./tasks/k8s-wk.yml
     - import_tasks : ./tasks/parameter_and_refresh.yml
-    - import_tasks : ./tasks/parameter.yml
