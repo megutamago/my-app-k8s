@@ -43,7 +43,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cluster-wide-app-resources-system
+  name: cluster-wide-app-resources
   namespace: argocd
 template:
   metadata:
