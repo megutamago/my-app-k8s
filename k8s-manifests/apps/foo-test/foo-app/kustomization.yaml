@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: foo-test
 resources:
   - web.yaml
+  #- test.yaml
