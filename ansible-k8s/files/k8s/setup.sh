@@ -62,7 +62,7 @@ helm install cilium cilium/cilium \
 # ArgoCD Install
 helm repo add argo https://argoproj.github.io/argo-helm
 helm install argocd argo/argo-cd \
-    --version 5.51.1 \
+    --version 5.51.4 \
     --create-namespace \
     --namespace argocd \
     --values https://raw.githubusercontent.com/megutamago/my-app-k8s/"${TARGET_BRANCH}"/k8s-manifests/argocd-helm-chart-values.yaml
