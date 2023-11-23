@@ -155,3 +155,5 @@ nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
 ```
 
 yamlがymlだと動かない
+
+### cilium.yamlの設定を修正していなかった
