@@ -2,11 +2,14 @@
 
 ```
 # metallbが動かないとき、以下で解消した
-systemctl stop kubelet
+
 systemctl stop docker
-iptables --flush
-iptables -tnat --flush
+
+systemctl stop kubelet && \
+iptables --flush && \
+iptables -tnat --flush && \
 systemctl start kubelet
+
 systemctl start docker
 
 # promtail: “error sending batch, will retry” status=-1 context deadline exceeded”

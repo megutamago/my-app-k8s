@@ -14,8 +14,6 @@ spec:
     # そのため、project側でリソース追加先のnamespaceへの変更を明示的に許可する必要がある
     - namespace: 'kube-system'
       server: https://kubernetes.default.svc
-    - namespace: 'metallb'
-      server: https://kubernetes.default.svc
     - namespace: 'monitoring'
       server: https://kubernetes.default.svc
     - namespace: 'logging'

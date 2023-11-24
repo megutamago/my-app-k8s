@@ -52,12 +52,47 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 
 curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
+# Cilium Install
 helm repo add cilium https://helm.cilium.io/
 helm install cilium cilium/cilium \
     --version 1.15.0-pre.2 \
     --namespace kube-system \
-    --set k8sServiceHost=${KUBE_API_SERVER_VIP} \
-    --set k8sServicePort=8443
+    --set k8sServiceHost=192.168.11.100 \
+    --set k8sServicePort=8443 \
+    --set hubble.enabled=true \
+    --set hubble.relay.enabled=true \
+    --set hubble.ui.enabled=true
+
+# MetalLB Install
+kubectl create namespace metallb
+cat > ~/kustomization.yaml <<EOF
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: metallb
+resources:
+  - github.com/metallb/metallb/config/native?ref=v0.13.12
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: config
+  namespace: metallb
+spec:
+  addresses:
+  -  192.168.11.128-192.168.11.199
+  autoAssign: true
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: config
+  namespace: metallb
+spec:
+  ipAddressPools:
+  - config
+EOF
+kubectl apply -k ~/
 
 # ArgoCD Install
 helm repo add argo https://argoproj.github.io/argo-helm
