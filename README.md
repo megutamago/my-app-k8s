@@ -157,3 +157,5 @@ nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
 ### yamlがymlだと動かない
 
 ### cilium.yamlの設定を修正していなかった
+
+### metallb-system の名前空間は固定で変えれない
