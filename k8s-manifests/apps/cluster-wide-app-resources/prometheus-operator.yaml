@@ -70,7 +70,7 @@ spec:
             additionalScrapeConfigs:
               - job_name: 'prometheus'
                 static_configs:
-                  - targets: ['192.168.11.32:9100']
+                  - targets: ['192.168.11.51:9100']
             storageSpec:
               volumeClaimTemplate:
                 spec:
