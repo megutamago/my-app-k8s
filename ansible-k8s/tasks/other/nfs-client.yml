@@ -1,4 +1,4 @@
-- name: Install the package
+- name: apt
   apt:
     name:
     - nfs-common

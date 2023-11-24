@@ -1,0 +1,7 @@
+- name: Execute setup.sh
+  shell: bash ~/work/setup.sh
+  register: result
+  changed_when: false
+- name: Show stdout setup.sh
+  debug:
+    msg: "{{ result.stdout_lines }}"
