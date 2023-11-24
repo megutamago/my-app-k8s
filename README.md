@@ -159,3 +159,97 @@ nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
 ### cilium.yamlの設定を修正していなかった
 
 ### metallb-system の名前空間は固定で変えれない
+k apply -k ./
+resource mapping not found for name: "config" namespace: "metallb-system" from "./": no matches for kind "IPAddressPool" in version "metallb.io/v1beta1"
+ensure CRDs are installed first
+resource mapping not found for name: "config" namespace: "metallb-system" from "./": no matches for kind "L2Advertisement" in version "metallb.io/v1beta1"
+ensure CRDs are installed first
+
+#
+apt install -y golang-go
+git clone https://github.com/metallb/metallb-operator.git
+cd metallb-operator
+go get sigs.k8s.io/controller-tools/cmd/controller-gen@v0.11.1
+kubectl apply -f bin/metallb-operator.yaml
+apt install make
+make deploy
+kubectl apply -f config/samples/metallb.yaml
+
+#
+helm install cilium cilium/cilium --namespace=kube-system -f values.yaml
+
+helm install cilium cilium/cilium \
+    --version 1.15.0-pre.2 \
+    --namespace kube-system \
+    -f values.yaml
+
+    --set k8sServiceHost=192.168.11.30 \
+    --set k8sServicePort=8443
+
+helm upgrade cilium cilium/cilium \
+   --version 1.15.0-pre.2 \
+   --namespace kube-system \
+   --reuse-values \
+   --set l2announcements.enabled=true \
+   --set kubeProxyReplacement=true \
+   --set k8sServiceHost=192.168.11.30 \
+   --set k8sServicePort=8443
+
+
+
+      
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: "blue-pool"
+spec:
+  cidrs:
+  - cidr: "192.168.11.128/26"
+
+kubectl get ippools
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.25.3
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  labels:
+    app: nginx
+  annotations:
+    "io.cilium/lb-ipam-ips": "192.168.11.151"
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http-web
+    port: 8081
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nginx
+
+
+
+
+helm install prometheus prometheus-community/kube-prometheus-stack --version 54.2.2 -n monitoring -f p.yaml
+
+
+# わんちゃんホスト(base)の再起動で動く。
