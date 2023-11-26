@@ -30,9 +30,9 @@
     mode: '0644'
   ignore_errors: yes
 
-- name: Pause for 1 minutes
+- name: Pause for 30 seconds
   pause:
-    minutes: 1
+    seconds: 30
 
 - name: shell
   shell: kubectl apply -f ~/LoadBalancerIPPool.yaml

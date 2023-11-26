@@ -1,6 +1,6 @@
-- name: Pause for 1 minutes
+- name: Pause for 30 seconds
   pause:
-    minutes: 1
+    seconds: 30
 
 - name: shell
   shell: helm repo add argo https://argoproj.github.io/argo-helm
