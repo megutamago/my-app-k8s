@@ -16,24 +16,28 @@
     path: /etc/haproxy/haproxy.cfg
     regexp: '\$\{KUBE_API_SERVER_VIP\}'
     replace: "{{ KUBE_API_SERVER_VIP }}"
+  ignore_errors: yes
 
 - name: replace
   replace:
     path: /etc/haproxy/haproxy.cfg
     regexp: '\$\{NODE_IPS\[0\]\}'
     replace: "{{ NODE_IPS_1 }}"
+  ignore_errors: yes
 
 - name: replace
   replace:
     path: /etc/haproxy/haproxy.cfg
     regexp: '\$\{NODE_IPS\[1\]\}'
     replace: "{{ NODE_IPS_2 }}"
+  ignore_errors: yes
 
 - name: replace
   replace:
     path: /etc/haproxy/haproxy.cfg
     regexp: '\$\{NODE_IPS\[2\]\}'
     replace: "{{ NODE_IPS_3 }}"
+  ignore_errors: yes
 
 - name: shell
   shell: echo "net.ipv4.ip_nonlocal_bind = 1" >> /etc/sysctl.conf
@@ -53,24 +57,28 @@
     path: /etc/keepalived/keepalived.conf
     regexp: '\$\{KUBE_API_SERVER_VIP\}'
     replace: "{{ KUBE_API_SERVER_VIP }}"
+  ignore_errors: yes
 
 - name: replace
   replace:
     path: /etc/keepalived/keepalived.conf
     regexp: '\$\{NODE_IPS\[0\]\}'
     replace: "{{ NODE_IPS_1 }}"
+  ignore_errors: yes
 
 - name: replace
   replace:
     path: /etc/keepalived/keepalived.conf
     regexp: '\$\{NODE_IPS\[1\]\}'
     replace: "{{ NODE_IPS_2 }}"
+  ignore_errors: yes
 
 - name: replace
   replace:
     path: /etc/keepalived/keepalived.conf
     regexp: '\$\{NODE_IPS\[2\]\}'
     replace: "{{ NODE_IPS_3 }}"
+  ignore_errors: yes
 
 
 - name: systemd

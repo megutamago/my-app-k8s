@@ -1,0 +1,26 @@
+- name: shell
+  shell: helm repo add argo https://argoproj.github.io/argo-helm
+
+- name: Execute helm
+  shell: |
+    helm install argocd argo/argo-cd \
+        --version 5.51.4 \
+        --create-namespace \
+        --namespace argocd \
+        --values https://raw.githubusercontent.com/megutamago/my-app-k8s/{{ TARGET_BRANCH }}/k8s-manifests/argocd-helm-chart-values.yaml
+  register: result
+  changed_when: false
+- name: Show stdout helm
+  debug:
+    msg: "{{ result.stdout_lines }}"
+
+- name: Execute helm
+  shell: |
+    helm install argocd argo/argocd-apps \
+        --version 1.4.1 \
+        --values https://raw.githubusercontent.com/megutamago/my-app-k8s/{{ TARGET_BRANCH }}/k8s-manifests/argocd-apps-helm-chart-values.yaml
+  register: result
+  changed_when: false
+- name: Show stdout helm
+  debug:
+    msg: "{{ result.stdout_lines }}"

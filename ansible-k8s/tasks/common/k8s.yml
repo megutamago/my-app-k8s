@@ -72,6 +72,7 @@
   apt:
     name:
     - containerd.io
+  ignore_errors: yes
 
 - name: file
   file:
@@ -126,6 +127,7 @@
     - "kubelet={{ INSTALL_KUBE_VERSION }}"
     - "kubeadm={{ INSTALL_KUBE_VERSION }}"
     - "kubectl={{ INSTALL_KUBE_VERSION }}"
+  ignore_errors: yes
 
 - name: shell
   shell: apt-mark hold kubelet kubeadm kubectl
