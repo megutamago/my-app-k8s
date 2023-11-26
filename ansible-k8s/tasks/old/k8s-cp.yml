@@ -1,0 +1,67 @@
+- name: Copy common.sh
+  copy:
+    src: "../files/old/common.sh"
+    dest: ~/work/
+    mode: '0755'
+
+- name: Copy setup.sh
+  copy:
+    src: "../files/old/setup.sh"
+    dest: ~/work/
+    mode: '0755'
+
+# ----------------------------- #
+
+- name: Execute common.sh
+  shell: bash ~/work/common.sh
+  register: result
+  changed_when: false
+- name: Show stdout common.sh
+  debug:
+    msg: "{{ result.stdout_lines }}"
+
+- name: Execute setup.sh
+  shell: bash ~/work/setup.sh
+  register: result
+  changed_when: false
+- name: Show stdout setup.sh
+  debug:
+    msg: "{{ result.stdout_lines }}"
+
+# ----------------------------- #
+
+- name: mv yaml
+  shell: mv ~/*.yaml ~/work
+
+- name: fetch joinfile cp
+  fetch:
+    src: "~/work/join_kubeadm_cp.yaml"
+    dest: "/root/work/ansible/files/k8s/fetch/"
+    flat: yes
+
+- name: fetch joinfile wk
+  fetch:
+    src: "~/work/join_kubeadm_wk.yaml"
+    dest: "/root/work/ansible/files/k8s/fetch/"
+    flat: yes
+
+- name: set bashrc
+  lineinfile:
+    dest: ~/.bashrc
+    insertafter: EOF
+    line: '{{ item }}'
+  with_items:
+  - source <(kubectl completion bash)
+  - alias k='kubectl'
+  - complete -F __start_kubectl k
+  - alias kcv='kubectl config view -o jsonpath='{.users[*].name}''
+  - alias kgn='kubectl get node -A'
+  - alias kgp='kubectl get pod -A'
+  - alias kgpw='kubectl get pod -A -o wide'
+  - alias kgs='kubectl get svc -A'
+  - alias kgd='kubectl get deployment -A'
+  - alias kgstate='kubectl get statefulset -A'
+  - alias kgsc='kubectl get storageclass -A'
+  - alias kgname='kubectl get namespace -A'
+  - alias kak='kubectl apply -k ./'
+  - alias kd='kubectl describe'

@@ -1,3 +1,7 @@
+- name: Pause for 3 minutes
+  pause:
+    minutes: 3
+
 - name: shell
   shell: helm repo add argo https://argoproj.github.io/argo-helm
 

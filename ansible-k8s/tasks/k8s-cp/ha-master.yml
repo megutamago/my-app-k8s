@@ -80,7 +80,6 @@
     replace: "{{ NODE_IPS_3 }}"
   ignore_errors: yes
 
-
 - name: systemd
   systemd:
     name: keepalived
