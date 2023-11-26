@@ -1,4 +1,88 @@
 - name: apt
   apt:
     name:
-    - haproxy 
+    - haproxy
+    - keepalived
+
+- name: copy
+  copy:
+    src: ./files/haproxy/haproxy.cfg
+    dest: /etc/haproxy/
+    mode: '0644'
+  ignore_errors: yes
+
+- name: replace
+  replace:
+    path: /etc/haproxy/haproxy.cfg
+    regexp: '\$\{KUBE_API_SERVER_VIP\}'
+    replace: "{{ KUBE_API_SERVER_VIP }}"
+
+- name: replace
+  replace:
+    path: /etc/haproxy/haproxy.cfg
+    regexp: '\$\{NODE_IPS\[0\]\}'
+    replace: "{{ NODE_IPS_1 }}"
+
+- name: replace
+  replace:
+    path: /etc/haproxy/haproxy.cfg
+    regexp: '\$\{NODE_IPS\[1\]\}'
+    replace: "{{ NODE_IPS_2 }}"
+
+- name: replace
+  replace:
+    path: /etc/haproxy/haproxy.cfg
+    regexp: '\$\{NODE_IPS\[2\]\}'
+    replace: "{{ NODE_IPS_3 }}"
+
+- name: shell
+  shell: echo "net.ipv4.ip_nonlocal_bind = 1" >> /etc/sysctl.conf
+
+- name: shell
+  shell: sysctl -p
+
+- name: copy
+  copy:
+    src: ./files/haproxy/keepalived.conf
+    dest: /etc/keepalived/
+    mode: '0644'
+  ignore_errors: yes
+
+- name: replace
+  replace:
+    path: /etc/keepalived/keepalived.conf
+    regexp: '\$\{KUBE_API_SERVER_VIP\}'
+    replace: "{{ KUBE_API_SERVER_VIP }}"
+
+- name: replace
+  replace:
+    path: /etc/keepalived/keepalived.conf
+    regexp: '\$\{NODE_IPS\[0\]\}'
+    replace: "{{ NODE_IPS_1 }}"
+
+- name: replace
+  replace:
+    path: /etc/keepalived/keepalived.conf
+    regexp: '\$\{NODE_IPS\[1\]\}'
+    replace: "{{ NODE_IPS_2 }}"
+
+- name: replace
+  replace:
+    path: /etc/keepalived/keepalived.conf
+    regexp: '\$\{NODE_IPS\[2\]\}'
+    replace: "{{ NODE_IPS_3 }}"
+
+
+- name: systemd
+  systemd:
+    name: keepalived
+    state: restarted
+    enabled: true
+  ignore_errors: yes
+
+- name: systemd
+  systemd:
+    name: haproxy
+    state: restarted
+    enabled: true
+  ignore_errors: yes

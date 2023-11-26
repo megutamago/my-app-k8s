@@ -4,14 +4,14 @@
   user: user
   become: yes
   max_fail_percentage: 0
+  vars_files:
+    - ./env.yml
   tasks:
     - import_tasks : ./tasks/common.yml
     - import_tasks : ./tasks/nfs-client.yml
-    - import_tasks : ./tasks/pre.yml
     - import_tasks : ./tasks/ha-master.yml
     - import_tasks : ./tasks/common.yml
     - import_tasks : ./tasks/setup.yml
-    - import_tasks : ./tasks/after.yml
     - import_tasks : ./tasks/parameter.yml
 
 - name: k8s-cp-join
@@ -20,6 +20,8 @@
   user: user
   become: yes
   max_fail_percentage: 0
+  vars_files:
+    - ./env.yml
   tasks:
     #- import_tasks : ./tasks/common.yml
     #- import_tasks : ./tasks/nfs-client.yml
@@ -32,6 +34,8 @@
   user: user
   become: yes
   max_fail_percentage: 0
+  vars_files:
+    - ./env.yml
   tasks:
     - import_tasks : ./tasks/common.yml
     - import_tasks : ./tasks/nfs-client.yml
