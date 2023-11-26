@@ -4,16 +4,21 @@
 - name: shell
   shell: helm repo add cilium https://helm.cilium.io/
 
+- name: copy
+  copy:
+    src: ./files/cp/values.yaml
+    dest: ~/
+    owner: root
+    group: root
+    mode: '0644'
+  ignore_errors: yes
+
 - name: Execute helm
   shell: |
     helm install cilium cilium/cilium \
         --version 1.15.0-pre.2 \
         --namespace kube-system \
-        --set k8sServiceHost={{ KUBE_API_SERVER_VIP }} \
-        --set k8sServicePort=8443 \
-        --set hubble.enabled=true \
-        --set hubble.relay.enabled=true \
-        --set hubble.ui.enabled=true
+        -f ~/values.yaml
   register: result
   changed_when: false
 - name: Show stdout helm
