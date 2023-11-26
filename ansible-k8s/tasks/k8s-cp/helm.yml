@@ -6,7 +6,7 @@
 
 - name: copy
   copy:
-    src: ./files/cp/values.yaml
+    src: ./files/cilium/values.yaml
     dest: ~/
     owner: root
     group: root
@@ -27,7 +27,7 @@
 
 - name: copy
   copy:
-    src: ./files/cp/kustomization.yaml
+    src: ./files/cilium/LoadBalancerIPPool.yaml
     dest: ~/
     owner: root
     group: root
@@ -35,7 +35,7 @@
   ignore_errors: yes
 
 - name: shell
-  shell: kubectl create namespace metallb
+  shell: kubectl apply -f LoadBalancerIPPool.yaml
 
-- name: shell
-  shell: kubectl apply -k ~/
+- name: mv yaml
+  shell: mv ~/*.yaml ~/work
