@@ -40,7 +40,7 @@
   ignore_errors: yes
 
 - name: shell
-  shell: kubectl apply -f LoadBalancerIPPool.yaml
+  shell: kubectl apply -f ~/LoadBalancerIPPool.yaml
 
 - name: mv yaml
   shell: mv ~/*.yaml ~/work
