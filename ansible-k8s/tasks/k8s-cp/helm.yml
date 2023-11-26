@@ -4,15 +4,6 @@
 - name: shell
   shell: helm repo add cilium https://helm.cilium.io/
 
-# - name: copy
-#   copy:
-#     src: ./files/cilium/values.yaml
-#     dest: ~/
-#     owner: root
-#     group: root
-#     mode: '0644'
-#   ignore_errors: yes
-
 - name: Execute helm
   shell: |
     helm install cilium cilium/cilium \
@@ -38,6 +29,10 @@
     group: root
     mode: '0644'
   ignore_errors: yes
+
+- name: Pause for 1 minutes
+  pause:
+    minutes: 1
 
 - name: shell
   shell: kubectl apply -f ~/LoadBalancerIPPool.yaml
