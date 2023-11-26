@@ -3,7 +3,10 @@ kind: Service
 metadata:
   name: argocd-server-lb
   namespace: argocd
+  annotations:
+    "io.cilium/lb-ipam-ips": "192.168.11.140"
 spec:
+  type: LoadBalancer
   ports:
   - name: http
     port: 80
@@ -16,5 +19,3 @@ spec:
   selector:
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/name: argocd-server
-  type: LoadBalancer
-  loadBalancerIP: 192.168.11.140

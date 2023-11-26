@@ -3,7 +3,10 @@ kind: Service
 metadata:
   name: prometheus-lb
   namespace: monitoring
+  annotations:
+    "io.cilium/lb-ipam-ips": "192.168.11.142"
 spec:
+  type: LoadBalancer
   ports:
   - name: http-web
     port: 9090
@@ -12,8 +15,6 @@ spec:
   selector:
     prometheus: prometheus-kube-prometheus-prometheus
     app.kubernetes.io/name: prometheus
-  type: LoadBalancer
-  loadBalancerIP: 192.168.11.142
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
