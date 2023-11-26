@@ -12,6 +12,7 @@
     - import_tasks : ./tasks/k8s-cp/ha-master.yml
     - import_tasks : ./tasks/common/k8s.yml
     - import_tasks : ./tasks/k8s-cp/setup.yml
+    - import_tasks : ./tasks/k8s-cp/helm.yml
     - import_tasks : ./tasks/other/parameter.yml
 
 - name: k8s-cp-join
@@ -43,3 +44,14 @@
     - import_tasks : ./tasks/common/k8s.yml
     - import_tasks : ./tasks/k8s-wk/setup.yml
     - import_tasks : ./tasks/other/parameter.yml
+
+- name: k8s-cp
+  hosts: k8s_cp
+  gather_facts: no
+  user: user
+  become: yes
+  max_fail_percentage: 0
+  vars_files:
+    - ./env.yml
+  tasks:
+    - import_tasks : ./tasks/k8s-cp/argocd.yml
