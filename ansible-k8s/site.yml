@@ -54,4 +54,4 @@
   vars_files:
     - ./env.yml
   tasks:
-    - import_tasks : ./tasks/k8s-cp/argocd.yml
+    #- import_tasks : ./tasks/k8s-cp/argocd.yml
