@@ -7,7 +7,7 @@ spec:
   project: cluster-wide-apps
   source:
     repoURL: https://mysql.github.io/mysql-operator/helm
-    path: mysql-operator
+    path: mysql-operator/
     targetRevision: 8.2.0-2.1.1
     directory:
       recurse: true
