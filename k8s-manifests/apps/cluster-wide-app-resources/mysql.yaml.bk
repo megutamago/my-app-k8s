@@ -6,11 +6,12 @@ metadata:
 spec:
   project: cluster-wide-apps
   source:
+    chart: mysql-operator
     repoURL: https://mysql.github.io/mysql-operator/
-    path: mysql-operator/
     targetRevision: 2.1.1
-    directory:
-      recurse: true
+    helm:
+      releaseName: mysql-operator
+      values:
   destination:
     server: https://kubernetes.default.svc
     namespace: mysql
@@ -19,7 +20,6 @@ spec:
       prune: true
     syncOptions:
     - CreateNamespace=true
-    - Replace=true
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
