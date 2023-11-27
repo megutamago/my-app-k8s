@@ -30,9 +30,21 @@
     mode: '0644'
   ignore_errors: yes
 
+- name: copy
+  copy:
+    src: ./files/cilium/L2AnnouncementPolicy.yaml
+    dest: ~/
+    owner: root
+    group: root
+    mode: '0644'
+  ignore_errors: yes
+
 - name: Pause for 30 seconds
   pause:
     seconds: 30
+
+- name: shell
+  shell: kubectl apply -f ~/L2AnnouncementPolicy.yaml
 
 - name: shell
   shell: kubectl apply -f ~/LoadBalancerIPPool.yaml
