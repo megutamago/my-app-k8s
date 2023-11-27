@@ -6,11 +6,12 @@ metadata:
 spec:
   project: cluster-wide-apps
   source:
-    repoURL: https://mysql.github.io/mysql-operator/helm
-    path: mysql-operator
-    targetRevision: 8.2.0-2.1.1
-    directory:
-      recurse: true
+    chart: mysql-operator
+    repoURL: https://mysql.github.io/mysql-operator/
+    targetRevision: 2.1.1
+    helm:
+      releaseName: mysql-operator
+      values:
   destination:
     server: https://kubernetes.default.svc
     namespace: mysql
