@@ -1,5 +1,20 @@
 # my-app-k8s
 
+---
+
+# L2 Announce
+その名の通り、MACアドレスで挙動が変わる。
+一度接続した後、L2AnnouncementPolicy.yaml削除でも繋がる。
+別端末だと繋がらない。再び作成すると繋がる。
+
+以下の設定がフィルターの役割であることもしっかり確認。
+  serviceSelector:
+    matchLabels:
+      color: blue
+
+今回のargocdが上手くデプロイされない件も最悪、LBは管理外にしたら使える
+てか、その方がいんじゃね
+
 ```
 # metallbが動かないとき、以下で解消した
 
