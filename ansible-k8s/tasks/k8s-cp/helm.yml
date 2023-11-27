@@ -39,10 +39,6 @@
     mode: '0644'
   ignore_errors: yes
 
-- name: Pause for 30 seconds
-  pause:
-    seconds: 30
-
 - name: shell
   shell: kubectl apply -f ~/L2AnnouncementPolicy.yaml
 
@@ -51,3 +47,7 @@
 
 - name: mv yaml
   shell: mv ~/*.yaml ~/work
+
+- name: Pause for 30 seconds
+  pause:
+    seconds: 30
