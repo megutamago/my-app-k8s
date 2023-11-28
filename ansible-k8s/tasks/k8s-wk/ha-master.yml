@@ -1,3 +1,12 @@
+- name: apt_repository
+  apt_repository:
+    repo: 'ppa:vbernat/haproxy-2.8'
+
+- name: Update Upgrade
+  apt:
+    upgrade: yes
+    update_cache: true
+
 - name: apt
   apt:
     name:

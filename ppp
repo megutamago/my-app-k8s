@@ -1,14 +1,17 @@
+# argocd
+
 frontend argocd
-  bind ${ARGOCD_VIP}:443
   mode tcp
   option tcplog
+  bind 192.168.11.140:443
   default_backend argocd
+
 backend argocd
   mode tcp
   option tcplog
   option tcp-check
   balance roundrobin
   default-server inter 10s downinter 5s rise 2 fall 2 slowstart 60s maxconn 250 maxqueue 256 weight 100
-  server argocd-1 ${WK_IPS[0]}:31000 check
-  server argocd-2 ${WK_IPS[1]}:31000 check
-  server argocd-3 ${WK_IPS[2]}:31000 check
+  server argocd-1 192.168.11.121:31000 check
+  server argocd-2 192.168.11.122:31000 check
+  server argocd-3 192.168.11.123:31000 check
