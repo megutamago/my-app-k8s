@@ -4,7 +4,7 @@ metadata:
   name: minio-lb
   namespace: minio
   annotations:
-    "io.cilium/lb-ipam-ips": "192.168.11.144"
+    "io.cilium/lb-ipam-ips": "192.168.11.143"
 spec:
   type: LoadBalancer
   ports:
