@@ -5,12 +5,12 @@
   become: yes
   max_fail_percentage: 0
   vars_files:
-    - ../env.yml
-    - ../vars.yml
+    - ./env.yml
+    - ./vars.yml
   tasks:
-    - include_tasks: "../tasks/{{ item }}"
-      with_items: "{{ var.k8s-cp.tasks }}"
-      when: var.k8s-cp.tasks
+    - include_tasks: "./tasks/{{ item }}"
+      with_items: "{{ var.k8s_cp.tasks }}"
+      when: var.k8s_cp.tasks
 
 - name: k8s-cp-join
   hosts: k8s_cp_join
@@ -19,12 +19,12 @@
   become: yes
   max_fail_percentage: 0
   vars_files:
-    - ../env.yml
-    - ../vars.yml
+    - ./env.yml
+    - ./vars.yml
   tasks:
-    - include_tasks: "../tasks/{{ item }}"
-      with_items: "{{ var.k8s-cp-join.tasks }}"
-      when: var.k8s-cp-join.tasks
+    - include_tasks: "./tasks/{{ item }}"
+      with_items: "{{ var.k8s_cp_join.tasks }}"
+      when: var.k8s_cp_join.tasks
 
 - name: k8s-wk
   hosts: k8s_wk
@@ -33,9 +33,9 @@
   become: yes
   max_fail_percentage: 0
   vars_files:
-    - ../env.yml
-    - ../vars.yml
+    - ./env.yml
+    - ./vars.yml
   tasks:
-    - include_tasks: "../tasks/{{ item }}"
-      with_items: "{{ var.k8s-wk.tasks }}"
-      when: var.k8s-wk.tasks
+    - include_tasks: "./tasks/{{ item }}"
+      with_items: "{{ var.k8s_wk.tasks }}"
+      when: var.k8s_wk.tasks
