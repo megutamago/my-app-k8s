@@ -39,3 +39,17 @@
     - include_tasks: "./tasks/{{ item }}"
       with_items: "{{ var.k8s_wk.tasks }}"
       when: var.k8s_wk.tasks
+
+- name: k8s-wk-backup
+  hosts: k8s_wk_backup
+  gather_facts: no
+  user: user
+  become: yes
+  max_fail_percentage: 0
+  vars_files:
+    - ./env.yml
+    - ./vars.yml
+  tasks:
+    - include_tasks: "./tasks/{{ item }}"
+      with_items: "{{ var.k8s_wk_backup.tasks }}"
+      when: var.k8s_wk_backup.tasks
