@@ -1,10 +1,3 @@
-- name: copy
-  copy:
-    src: ./files/haproxy/haproxy.cfg
-    dest: /etc/modules-load.d/containerd.conf
-    mode: '0644'
-  ignore_errors: yes
-
 - name: lineinfile
   lineinfile:
     path: /etc/modules-load.d/containerd.conf
