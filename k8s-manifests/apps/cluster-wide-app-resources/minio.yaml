@@ -3,15 +3,13 @@ kind: Service
 metadata:
   name: minio-lb
   namespace: minio
-  annotations:
-    "io.cilium/lb-ipam-ips": "192.168.11.143"
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
-  - name: http
-    port: 80
-    protocol: TCP
+  - port: 80
     targetPort: 9001
+    nodePort: 31004
+    protocol: TCP
   selector:
     app: minio
     release: minio
