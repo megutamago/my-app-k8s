@@ -3,15 +3,13 @@ kind: Service
 metadata:
   name: loki-lb
   namespace: logging
-  annotations:
-    "io.cilium/lb-ipam-ips": "192.168.11.144"
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
-  - name: loki-port
-    port: 3100
-    protocol: TCP
+  - port: 3100
     targetPort: 3100
+    nodePort: 30080
+    protocol: TCP
   selector:
     app.kubernetes.io/component: write
     app.kubernetes.io/instance: loki
