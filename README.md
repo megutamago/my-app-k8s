@@ -1,6 +1,7 @@
 # my-app-k8s
 
 ---
+# kubectl port-forward svc/argocd-server -n argocd 8080:443
 
 # L2 Announce
 その名の通り、MACアドレスで挙動が変わる。
