@@ -37,7 +37,7 @@ spec:
     chart: tempo-distributed
     repoURL: https://grafana.github.io/helm-charts
     targetRevision: 1.7.0
-    helm:
+    helm: 
       releaseName: tempo-distributed
       values: |
         # Enable trace ingestion

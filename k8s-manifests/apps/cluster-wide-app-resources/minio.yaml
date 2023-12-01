@@ -1,6 +1,4 @@
 apiVersion: v1
-<<<<<<< HEAD
-=======
 kind: Service
 metadata:
   name: minio-lb
@@ -17,7 +15,6 @@ spec:
     release: minio
 ---
 apiVersion: v1
->>>>>>> 2801ad85ffe10847fb174f18fb4becb460627f92
 kind: Secret
 metadata:
   name: minio-secret
