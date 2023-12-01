@@ -1,11 +1,11 @@
 var:
   k8s_cp:
     tasks:
-      - common/common.yml
-      - common/nfs-client.yml
-      - k8s-cp/ha-master.yml
-      - common/k8s.yml
-      - k8s-cp/setup.yml
+      #- common/common.yml
+      #- common/nfs-client.yml
+      #- k8s-cp/ha-master.yml
+      #- common/k8s.yml
+      #- k8s-cp/setup.yml
       - k8s-cp/helm.yml
       # - common/parameter.yml
   k8s_cp_join:
