@@ -10,13 +10,13 @@ server:
     targetCPUUtilizationPercentage: 90
     # -- Average memory utilization percentage (to the requested resource) for the Argo CD server [HPA]
     targetMemoryUtilizationPercentage: 175
-  resources:
-    requests:
-      cpu: 100m
-      memory: 48Mi
-    limits:
-      cpu: 200m
-      memory: 128Mi
+  # resources:
+  #   requests:
+  #     cpu: 100m
+  #     memory: 48Mi
+  #   limits:
+  #     cpu: 200m
+  #     memory: 128Mi
   pdb:
     enabled: true
     minAvailable: 1
@@ -31,68 +31,68 @@ server:
 
 controller:
   enableStatefulSet: true
-  resources:
-    limits:
-      cpu: 500m
-      memory: 512Mi
-    requests:
-      cpu: 250m
-      memory: 128Mi
+  # resources:
+  #   limits:
+  #     cpu: 500m
+  #     memory: 512Mi
+  #   requests:
+  #     cpu: 250m
+  #     memory: 128Mi
   pdb:
     enabled: true
     minAvailable: 1
     maxUnavailable: 0
 
 dex:
-  resources:
-    limits:
-      cpu: 100m
-      memory: 128Mi
-    requests:
-      cpu: 50m
-      memory: 64Mi
+  # resources:
+  #   limits:
+  #     cpu: 100m
+  #     memory: 128Mi
+  #   requests:
+  #     cpu: 50m
+  #     memory: 64Mi
   pdb:
     enabled: true
     minAvailable: 1
     maxUnavailable: 0
 
 redis:
-  resources:
-    limits:
-      cpu: 200m
-      memory: 256Mi
-    requests:
-      cpu: 100m
-      memory: 128Mi
+  # resources:
+  #   limits:
+  #     cpu: 200m
+  #     memory: 256Mi
+  #   requests:
+  #     cpu: 100m
+  #     memory: 128Mi
 
 repoServer:
   replicaCount: 1
-  resources:
-    limits:
-      cpu: 1500m
-      memory: 256Mi
-    requests:
-      cpu: 500m
-      memory: 128Mi
+  # resources:
+  #   limits:
+  #     cpu: 1500m
+  #     memory: 256Mi
+  #   requests:
+  #     cpu: 500m
+  #     memory: 128Mi
 
 applicationSet:
   replicaCount: 1
-  resources:
-    limits:
-      cpu: 100m
-      memory: 128Mi
-    requests:
-      cpu: 100m
-      memory: 64Mi
+  # resources:
+  #   limits:
+  #     cpu: 100m
+  #     memory: 128Mi
+  #   requests:
+  #     cpu: 100m
+  #     memory: 64Mi
 
 notifications:
-  resources:
-    limits:
-      cpu: 100m
-      memory: 64Mi
-    requests:
-      cpu: 100m
-      memory: 64Mi
+  # resources:
+  #   limits:
+  #     cpu: 100m
+  #     memory: 64Mi
+  #   requests:
+  #     cpu: 100m
+  #     memory: 64Mi
 
 configs:
   secret:
