@@ -1,6 +1,8 @@
 # my-app-k8s
 
 ---
+### gitignoreに入れてても、venvがリポジトリにあるとシンボリックリンクどうこうのエラーになる
+
 # k9s
 ### portforward: :pf , 0.0.0.0
 ### venvがgitにあるとエラーになる
