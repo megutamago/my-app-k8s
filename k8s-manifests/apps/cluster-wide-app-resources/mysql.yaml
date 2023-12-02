@@ -53,7 +53,7 @@ spec:
             local_infile=off
         datadirVolumeClaimTemplate:
           accessModes:
-            - ReadWriteMany
+            - ReadWriteOnce
           resources:
             requests:
               storage: 10Gi
