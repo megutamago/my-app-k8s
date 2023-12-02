@@ -23,7 +23,7 @@ spec:
   project: cluster-wide-apps
   source:
     repoURL: https://github.com/prometheus-community/helm-charts
-    path: charts/kube-prometheus-stack/ #charts/kube-prometheus-stack/charts/crds/crds/
+    path: charts/kube-prometheus-stack/crds/ #charts/kube-prometheus-stack/charts/crds/crds/
     targetRevision: kube-prometheus-stack-45.3.0 #54.2.2
     directory:
       recurse: true
