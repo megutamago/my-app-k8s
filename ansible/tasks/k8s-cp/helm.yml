@@ -7,7 +7,7 @@
 - name: Execute helm
   shell: |
     helm install cilium cilium/cilium \
-        --version 1.14.4 \
+        --version 1.15.0-pre.2 \
         --namespace kube-system \
         --set kubeProxyReplacement=strict \
         --set k8sServiceHost={{ KUBE_API_SERVER_VIP }} \
