@@ -7,7 +7,7 @@ var:
       - common/k8s.yml
       - k8s-cp/setup.yml
       - k8s-cp/helm.yml
-      # - common/parameter.yml
+      - common/parameter.yml
   k8s_cp_join:
     tasks:
       # - common/common.yml
@@ -19,15 +19,15 @@ var:
     tasks:
       - common/common.yml
       - common/nfs-client.yml
-      # - k8s-wk/ha-master.yml
+      - k8s-wk/ha-master.yml
       - common/k8s.yml
       - k8s-wk/setup.yml
-      # - common/parameter.yml
+      - common/parameter.yml
   k8s_wk_backup:
     tasks:
       - common/common.yml
       - common/nfs-client.yml
-      # - k8s-wk/ha-backup.yml
+      - k8s-wk/ha-backup.yml
       - common/k8s.yml
       - k8s-wk/setup.yml
-      # - common/parameter.yml
+      - common/parameter.yml
