@@ -1,6 +1,10 @@
 # my-app-k8s
 
 ---
+# k9s
+### portforward: :pf , 0.0.0.0
+### venvがgitにあるとエラーになる
+
 # kubectl port-forward svc/argocd-server -n argocd 8080:443
 
 # L2 Announce
