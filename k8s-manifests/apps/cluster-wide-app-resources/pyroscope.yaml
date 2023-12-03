@@ -45,7 +45,7 @@ spec:
           components:
             querier:
               kind: Deployment
-              replicaCount: 3
+              replicaCount: 2
               resources:
                 limits:
                   memory: 256Mi
@@ -81,7 +81,7 @@ spec:
                   cpu: 100m
             ingester:
               kind: StatefulSet
-              replicaCount: 3
+              replicaCount: 2
               terminationGracePeriodSeconds: 600
               resources:
                 limits:
@@ -91,7 +91,7 @@ spec:
                   cpu: 200m
             compactor:
               kind: StatefulSet
-              replicaCount: 3
+              replicaCount: 2
               persistence:
                 enabled: false
               resources:
@@ -102,7 +102,7 @@ spec:
                   cpu: 200m
             store-gateway:
               kind: StatefulSet
-              replicaCount: 3
+              replicaCount: 2
               persistence:
                 enabled: false
               resources:

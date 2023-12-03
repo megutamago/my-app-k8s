@@ -1,5 +1,13 @@
 # my-app-k8s
 
+### 全体的にリソース足りなくなってるので、全体的にレプリカは3->2にする
+
+### redis
+```
+$ helm repo add ot-helm https://ot-container-kit.github.io/helm-charts/
+$ helm install redis-operator ot-helm/redis-operator --namespace ot-operators --create-namespace
+```
+
 ### https://kubernetes.io/ja/docs/tasks/run-application/run-replicated-stateful-application/
 
 #
