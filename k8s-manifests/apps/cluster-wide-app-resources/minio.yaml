@@ -67,6 +67,8 @@ spec:
             policy: none
           - name: k8s-tempo
             policy: none
+          - name: k8s-pyroscope
+            policy: none
         
         # Minio Policies
         policies:

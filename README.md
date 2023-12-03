@@ -1,5 +1,16 @@
 # my-app-k8s
 
+#
+printf "foo;bar 100\n foo;baz 200" | curl \
+-X POST \
+--data-binary @- \
+'http://pyroscope-querier.pyroscope.svc.cluster.local.:4040/ingest?name=curl-test-app&from=1615709120&until=1615709130'
+10.96.8.48
+
+### pyroscopeのmicro版はリソース不足で立ち上がらなかったため、request値修正
+
+### podが立ち上がらない時、"kd pod -n xxx xxx"
+
 ---
 ### gitignoreに入れてても、venvがリポジトリにあるとシンボリックリンクどうこうのエラーになる
 

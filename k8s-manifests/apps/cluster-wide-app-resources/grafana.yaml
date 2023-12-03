@@ -103,6 +103,13 @@ spec:
                   enabled: true
                 lokiSearch:
                   datasourceUid: 'Loki'
+          datasources4.yaml:
+           apiVersion: 1
+           datasources:
+           - name: Pyroscope
+             type: pyroscope
+             uid: Pyroscope
+             url: http://pyroscope-querier.pyroscope:4040
         dashboards:
           default:
             prometheus-stats:
