@@ -107,7 +107,7 @@ spec:
            apiVersion: 1
            datasources:
            - name: Pyroscope
-             type: pyroscope
+             type: grafana-pyroscope-datasource
              uid: Pyroscope
              url: http://pyroscope-querier.pyroscope:4040
         dashboards:

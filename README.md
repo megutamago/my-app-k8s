@@ -1,5 +1,7 @@
 # my-app-k8s
 
+### https://kubernetes.io/ja/docs/tasks/run-application/run-replicated-stateful-application/
+
 #
 printf "foo;bar 100\n foo;baz 200" | curl \
 -X POST \
