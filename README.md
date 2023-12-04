@@ -1,5 +1,23 @@
 # my-app-k8s
 
+## 残りは、redisとprometheus。prometheusのcrdsはok。二つ検証
+
+
+kubectl delete -f https://raw.githubusercontent.com/prometheus-community/helm-charts/kube-prometheus-stack-55.0.0/charts/kube-prometheus-stack/charts/crds/crds/crd-alertmanagerconfigs.yaml && \
+kubectl delete -f https://raw.githubusercontent.com/prometheus-community/helm-charts/kube-prometheus-stack-55.0.0/charts/kube-prometheus-stack/charts/crds/crds/crd-alertmanagers.yaml && \
+kubectl delete -f https://raw.githubusercontent.com/prometheus-community/helm-charts/kube-prometheus-stack-55.0.0/charts/kube-prometheus-stack/charts/crds/crds/crd-podmonitors.yaml && \
+kubectl delete -f https://raw.githubusercontent.com/prometheus-community/helm-charts/kube-prometheus-stack-55.0.0/charts/kube-prometheus-stack/charts/crds/crds/crd-probes.yaml
+
+kubectl apply -f https://raw.githubusercontent.com/prometheus-community/helm-charts/kube-prometheus-stack-55.0.0/charts/kube-prometheus-stack/charts/crds/crds/crd-prometheusagents.yaml && \
+kubectl apply -f https://raw.githubusercontent.com/prometheus-community/helm-charts/kube-prometheus-stack-55.0.0/charts/kube-prometheus-stack/charts/crds/crds/crd-prometheuses.yaml && \
+kubectl apply -f https://raw.githubusercontent.com/prometheus-community/helm-charts/kube-prometheus-stack-55.0.0/charts/kube-prometheus-stack/charts/crds/crds/crd-prometheusrules.yaml && \
+kubectl apply -f https://raw.githubusercontent.com/prometheus-community/helm-charts/kube-prometheus-stack-55.0.0/charts/kube-prometheus-stack/charts/crds/crds/crd-scrapeconfigs.yaml && \
+kubectl apply -f https://raw.githubusercontent.com/prometheus-community/helm-charts/kube-prometheus-stack-55.0.0/charts/kube-prometheus-stack/charts/crds/crds/crd-servicemonitors.yaml && \
+kubectl apply -f https://raw.githubusercontent.com/prometheus-community/helm-charts/kube-prometheus-stack-55.0.0/charts/kube-prometheus-stack/charts/crds/crds/crd-thanosrulers.yaml
+
+
+### Promethues CRDsは反映に時間かかった。
+
 ### 約20m経過して一気にコンテナ立ち上げが始まる
 
 ## CPU, Memory 共にたりない
