@@ -4,6 +4,10 @@ metadata:
   name: redis
   namespace: myapp
 spec:
+  selector:
+    matchLabels:
+      app: redis
+      app.kubernetes.io/name: redis
   containers:
   - name: redis
     image: kubernetes/redis:v1
@@ -25,7 +29,4 @@ spec:
       emptyDir: {}
     - name: config
       configMap:
-        name: redis-config
-        items:
-        - key: redis-config
-          path: redis.conf
+        name: redis
