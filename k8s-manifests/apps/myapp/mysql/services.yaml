@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mysql
-  namespace: mysql
+  namespace: myapp
   labels:
     app: mysql
     app.kubernetes.io/name: mysql
@@ -21,7 +21,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mysql-read
-  namespace: mysql
+  namespace: myapp
   labels:
     app: mysql
     app.kubernetes.io/name: mysql
