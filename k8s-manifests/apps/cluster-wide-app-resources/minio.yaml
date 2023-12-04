@@ -35,7 +35,7 @@ spec:
   project: cluster-wide-apps
   source:
     chart: minio
-    repoURL: https://charts.min.io/
+    repoURL: https://charts.min.io/  # ref: https://artifacthub.io/packages/helm/minio-official/minio
     targetRevision: 5.0.14
     helm:
       releaseName: minio
