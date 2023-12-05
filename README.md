@@ -1,5 +1,22 @@
 # my-app-k8s
 
+default       alertmanager-kube-prometheus-stack-alertmanager-0           2/2     Running   0          5m53s
+default       kube-prometheus-stack-grafana-8558c9db96-rdhnt              3/3     Running   0          6m6s
+default       kube-prometheus-stack-kube-state-metrics-5c777c7bf5-55gbf   1/1     Running   0          6m6s
+default       kube-prometheus-stack-operator-6755464458-sdm5g             1/1     Running   0          6m6s
+default       kube-prometheus-stack-prometheus-node-exporter-hggzc        1/1     Running   0          6m6s
+default       kube-prometheus-stack-prometheus-node-exporter-lm6vq        1/1     Running   0          6m6s
+default       kube-prometheus-stack-prometheus-node-exporter-zww57        1/1     Running   0          6m6s
+default       prometheus-kube-prometheus-stack-prometheus-0  
+
+
+default       kube-prometheus-stack-kube-state-metrics-5c777c7bf5-sck7b   1/1     Running   0          3m3s
+default       kube-prometheus-stack-operator-6755464458-sh5sr             1/1     Running   0          3m3s
+default       kube-prometheus-stack-prometheus-node-exporter-5hvxc        1/1     Running   0          3m3s
+default       kube-prometheus-stack-prometheus-node-exporter-5l96h        1/1     Running   0          3m3s
+default       kube-prometheus-stack-prometheus-node-exporter-t6n64   
+
+
 ## 残りは、redisとprometheus。prometheusのcrdsはok。二つ検証
 
 
