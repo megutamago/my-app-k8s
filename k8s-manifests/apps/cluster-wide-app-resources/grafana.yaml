@@ -31,6 +31,16 @@ spec:
         adminUser: grafana
         adminPassword: grafana
         replicas: 2
+        persistence:
+          type: pvc
+          enabled: true
+          accessModes:
+            - ReadWriteOnce
+          size: 10Gi
+          finalizers:
+            - kubernetes.io/pvc-protection
+          inMemory:
+            enabled: true
         resource:
           limits:
             cpu: 200m
