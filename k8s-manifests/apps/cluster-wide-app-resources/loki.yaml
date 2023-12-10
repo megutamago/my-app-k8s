@@ -146,11 +146,11 @@ spec:
         # Disable self-monitoring
         monitoring:
           selfMonitoring:
-            enabled: false
+            enabled: true
             grafanaAgent:
-              installOperator: false
+              installOperator: true
           lokiCanary:
-              enabled: false
+              enabled: true
         
         # Disable helm-test
         test:
