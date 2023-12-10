@@ -40,6 +40,9 @@ spec:
     helm:
       releaseName: minio
       values: |
+        rootUser: minio
+        rootPassword: minio123
+
         # Get root user/password from secret
         existingSecret: minio-secret
         
@@ -64,11 +67,17 @@ spec:
         # Minio Buckets
         buckets:
           - name: k8s-loki
-            policy: none
+            policy: loki
           - name: k8s-tempo
-            policy: none
+            policy: tempo
           - name: k8s-pyroscope
-            policy: none
+            policy: pyroscope
+
+        customCommands:
+          - cmd1: mc alias set myminio http://minio.minio:9000 minio minio123
+          - cmd2: mc ilm rule add myminio/k8s-loki --expire-days 90
+          - cmd3: mc ilm rule add myminio/k8s-tempo --expire-days 90
+          - cmd4: mc ilm rule add myminio/k8s-pyroscope --expire-days 90
         
         # Minio Policies
         policies:
@@ -82,6 +91,10 @@ spec:
                   - "s3:GetObject"
                   - "s3:ListBucket"
                   - "s3:PutObject"
+                  - "s3:PutLifecycleConfiguration"
+                  - "s3:GetLifecycleConfiguration"
+                  - "admin:SetTier"
+                  - "admin:ListTier"
           - name: tempo
             statements:
               - resources:
@@ -94,6 +107,26 @@ spec:
                   - "s3:PutObject"
                   - "s3:GetObjectTagging"
                   - "s3:PutObjectTagging"
+                  - "s3:PutLifecycleConfiguration"
+                  - "s3:GetLifecycleConfiguration"
+                  - "admin:SetTier"
+                  - "admin:ListTier"
+          - name: pyroscope
+            statements:
+              - resources:
+                  - 'arn:aws:s3:::k8s-pyroscope'
+                  - 'arn:aws:s3:::k8s-pyroscope/*'
+                actions:
+                  - "s3:DeleteObject"
+                  - "s3:GetObject"
+                  - "s3:ListBucket"
+                  - "s3:PutObject"
+                  - "s3:GetObjectTagging"
+                  - "s3:PutObjectTagging"
+                  - "s3:PutLifecycleConfiguration"
+                  - "s3:GetLifecycleConfiguration"
+                  - "admin:SetTier"
+                  - "admin:ListTier"
         # Minio Users
         users:
           - accessKey: loki
