@@ -28,8 +28,8 @@ spec:
     helm:
       releaseName: grafana
       values: |
-        adminUser: admin
-        adminPassword: admin
+        adminUser: grafana
+        adminPassword: grafana
         resource:
           limits:
             cpu: 200m
