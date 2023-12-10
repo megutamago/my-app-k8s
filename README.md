@@ -1,5 +1,8 @@
 # my-app-k8s
 
+curl -v -H "Content-Type: application/json" -XPOST -s "http://192.168.11.144:3100/loki/api/v1/push" --data-raw \
+  '{"streams": [{ "stream": { "foo": "bar2" }, "values": [ [ "1701818238000000000", "fizzbuzz" ] ] }]}'
+
 default       alertmanager-kube-prometheus-stack-alertmanager-0           2/2     Running   0          5m53s
 default       kube-prometheus-stack-grafana-8558c9db96-rdhnt              3/3     Running   0          6m6s
 default       kube-prometheus-stack-kube-state-metrics-5c777c7bf5-55gbf   1/1     Running   0          6m6s

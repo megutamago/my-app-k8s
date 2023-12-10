@@ -30,7 +30,6 @@ spec:
       values: |
         adminUser: grafana
         adminPassword: grafana
-        replicas: 2
         resource:
           limits:
             cpu: 200m
