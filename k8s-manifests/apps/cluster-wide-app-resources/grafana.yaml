@@ -31,8 +31,6 @@ spec:
         adminUser: grafana
         adminPassword: grafana
         replicas: 2
-        serviceMonitor:
-          enabled: true
         persistence:
           type: pvc
           enabled: true
