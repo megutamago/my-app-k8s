@@ -17,29 +17,6 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prometheus-crd
-  namespace: argocd
-spec:
-  project: cluster-wide-apps
-  source:
-    repoURL: https://github.com/prometheus-community/helm-charts
-    path: charts/kube-prometheus-stack/charts/crds/crds/
-    targetRevision: kube-prometheus-stack-55.0.0 #45.3.0
-    directory:
-      recurse: true
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: monitoring
-  syncPolicy:
-    automated:
-      prune: true
-    syncOptions:
-    - CreateNamespace=true
-    - Replace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
   name: prometheus
   namespace: argocd
   finalizers:
@@ -49,7 +26,7 @@ spec:
   source:
     chart: kube-prometheus-stack
     repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 54.2.2 #45.3.0
+    targetRevision: 55.1.0
     helm:
       releaseName: prometheus
       skipCrds: true
