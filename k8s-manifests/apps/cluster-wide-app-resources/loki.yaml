@@ -146,9 +146,9 @@ spec:
         # Disable self-monitoring
         monitoring:
           selfMonitoring:
-            enabled: true
+            enabled: false
             grafanaAgent:
-              installOperator: true
+              installOperator: false
           lokiCanary:
               enabled: true
         
@@ -164,3 +164,4 @@ spec:
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
+    - Replace=true
