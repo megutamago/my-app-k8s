@@ -42,7 +42,23 @@ spec:
         loki:
           # Disable multi-tenant support
           auth_enabled: false
-        
+
+          # -- Configure memcached as an external cache for chunk and results cache.
+          memcached:
+            chunk_cache:
+              enabled: true
+              host: ""
+              service: "memcached-client"
+              batch_size: 256
+              parallelism: 10
+            results_cache:
+              enabled: false
+              host: ""
+              service: "memcached-client"
+              timeout: "500ms"
+              default_validity: "12h"
+
+
           # S3 backend storage configuration
           storage:
             bucketNames:
