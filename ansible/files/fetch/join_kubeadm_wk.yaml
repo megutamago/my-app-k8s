@@ -10,5 +10,5 @@ nodeRegistration:
 discovery:
   bootstrapToken:
     apiServerEndpoint: "192.168.11.100:8443"
-    token: "ef1ed1.4b6987b4f60a6279"
+    token: "c54b66.f0167012b4f2be22"
     unsafeSkipCAVerification: true
