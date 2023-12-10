@@ -28,8 +28,6 @@ spec:
       server: https://kubernetes.default.svc
     - namespace: 'mysql'
       server: https://kubernetes.default.svc
-    - namespace: 'memcached'
-      server: https://kubernetes.default.svc
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
