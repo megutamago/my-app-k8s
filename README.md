@@ -1,5 +1,11 @@
 # my-app-k8s
 
+echo 'stats slabs' | nc 10.96.198.103 11211
+echo 'stats items' | nc 10.96.198.103 11211 | grep "6:"
+echo 'stats cachedump 6 183' | nc 10.96.198.103 11211
+echo 'get 89df85475e24af4a' | nc 10.96.198.103 11211
+
+
 kubectl run -it --rm python --image=python:3.10-alpine --restart=Never python
 
 # timestamp重要
