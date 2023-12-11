@@ -47,13 +47,13 @@ spec:
           memcached:
             chunk_cache:
               enabled: true
-              host: "chunk-cache-memcached.logging:11211"
+              host: "chunk-cache-memcached.logging.svc"
               service: "memcache"
               batch_size: 256
               parallelism: 10
             results_cache:
               enabled: true
-              host: "results-cache-memcached.logging:11211"
+              host: "results-cache-memcached.logging.svc"
               service: "memcache"
               timeout: "500ms"
               default_validity: "12h"
