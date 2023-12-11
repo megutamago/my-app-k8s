@@ -1,0 +1,28 @@
+- name: shell minio install
+  shell: |
+    curl https://dl.min.io/client/mc/release/linux-amd64/mc \
+    --create-dirs \
+    -o $HOME/minio-binaries/mc
+
+- name: shell minio install
+  shell: |
+    chmod +x $HOME/minio-binaries/mc && \
+    export PATH=$PATH:$HOME/minio-binaries/
+
+# ref: https://tanka.dev/install#jsonnet-bundler
+- name: shell tanka install
+  shell: |
+    curl -Lo /usr/local/bin/tk https://github.com/grafana/tanka/releases/latest/download/tk-linux-amd64 && \
+    chmod a+x /usr/local/bin/tk
+
+- name: shell jsonnet Bundler install
+  shell: |
+    curl -Lo /usr/local/bin/jb https://github.com/jsonnet-bundler/jsonnet-bundler/releases/latest/download/jb-linux-amd64 && \
+    chmod a+x /usr/local/bin/jb
+
+- name: shell argocd cli install
+  shell: |
+    curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+    sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+    rm argocd-linux-amd64
+
