@@ -73,12 +73,12 @@ spec:
           - name: k8s-pyroscope
             policy: pyroscope
 
-        customCommands:
-          - command: mc alias set myminio http://minio.minio:9000 minio minio123
-          # - cmd1: mc alias set myminio http://minio.minio:9000 minio minio123
-          # - cmd2: mc ilm rule add myminio/k8s-loki --expire-days 90
-          # - cmd3: mc ilm rule add myminio/k8s-tempo --expire-days 90
-          # - cmd4: mc ilm rule add myminio/k8s-pyroscope --expire-days 90
+        # customCommands:
+        #   - command: mc alias set myminio http://minio.minio:9000 minio minio123
+        #   - cmd1: mc alias set myminio http://minio.minio:9000 minio minio123
+        #   - cmd2: mc ilm rule add myminio/k8s-loki --expire-days 90
+        #   - cmd3: mc ilm rule add myminio/k8s-tempo --expire-days 90
+        #   - cmd4: mc ilm rule add myminio/k8s-pyroscope --expire-days 90
         
         # Minio Policies
         policies:

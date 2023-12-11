@@ -6,7 +6,8 @@ var:
       - k8s-cp/ha-master.yml
       - common/k8s.yml
       - k8s-cp/setup.yml
-      - k8s-cp/helm.yml
+      - k8s-cp/cilium.yml
+      - k8s-cp/argocd.yml
       - common/parameter.yml
   k8s_cp_join:
     tasks:
