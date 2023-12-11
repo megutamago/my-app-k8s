@@ -1,5 +1,7 @@
 # my-app-k8s
 
+# prometheus-stackはargocdのuiで一個ずつCRDをsyncすると動く。
+
 echo 'stats slabs' | nc 10.96.198.103 11211
 echo 'stats items' | nc 10.96.198.103 11211 | grep "6:"
 echo 'stats cachedump 6 183' | nc 10.96.198.103 11211
