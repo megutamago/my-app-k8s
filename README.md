@@ -1,5 +1,7 @@
 # my-app-k8s
 
+kubectl run -it --rm python --image=python:3.10-alpine --restart=Never python
+
 # timestamp重要
 curl -v -H "Content-Type: application/json" -XPOST -s "http://192.168.11.144:3100/loki/api/v1/push" --data-raw \
   '{"streams": [{ "stream": { "foo": "bar3" }, "values": [ [ "1702204704000000002", "fizzbuzz4" ] ] }]}'
