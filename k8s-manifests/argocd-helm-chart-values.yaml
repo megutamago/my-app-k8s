@@ -33,8 +33,8 @@ controller:
   enableStatefulSet: true
   resources:
     limits:
-      cpu: 500m
-      memory: 512Mi
+      cpu: 750m
+      memory: 768Mi
     requests:
       cpu: 250m
       memory: 128Mi
@@ -46,8 +46,8 @@ controller:
 dex:
   resources:
     limits:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 200m
+      memory: 256Mi
     requests:
       cpu: 50m
       memory: 64Mi
@@ -59,8 +59,8 @@ dex:
 redis:
   resources:
     limits:
-      cpu: 200m
-      memory: 256Mi
+      cpu: 300m
+      memory: 384Mi
     requests:
       cpu: 100m
       memory: 128Mi
@@ -70,7 +70,7 @@ repoServer:
   resources:
     limits:
       cpu: 2000m
-      memory: 500Mi
+      memory: 512Mi
     requests:
       cpu: 750m
       memory: 200Mi
@@ -79,8 +79,8 @@ applicationSet:
   replicaCount: 1
   resources:
     limits:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 200m
+      memory: 256Mi
     requests:
       cpu: 100m
       memory: 64Mi
@@ -88,8 +88,8 @@ applicationSet:
 notifications:
   resources:
     limits:
-      cpu: 100m
-      memory: 64Mi
+      cpu: 200m
+      memory: 128Mi
     requests:
       cpu: 100m
       memory: 64Mi
