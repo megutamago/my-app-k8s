@@ -1,5 +1,7 @@
 # my-app-k8s
 
+mc alias set myminio http://10.96.146.202:9000 minio minio123
+
 # prometheus-stackはargocdのuiで一個ずつCRDをsyncすると動く。
 
 echo 'stats slabs' | nc 10.96.198.103 11211

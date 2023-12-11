@@ -39,6 +39,13 @@ spec:
     helm:
       releaseName: loki
       values: |
+        # Enable Serivce Monitor
+        monitoring:
+          serviceMonitor:
+            enabled: true
+            labels:
+              release: prometheus
+
         loki:
           # Disable multi-tenant support
           auth_enabled: false
@@ -85,11 +92,9 @@ spec:
           # Number of replicas for the write
           replicas: 2
           persistence:
-            # -- Size of persistent disk
-            size: 10Gi
-            # -- Storage class to be used.
             storageClass: nfs-share
-        
+            size: 10Gi
+
           # Enable environment variables in config file
           # https://grafana.com/docs/loki/latest/configuration/#use-environment-variables-in-the-configuration
           extraArgs:
@@ -111,10 +116,8 @@ spec:
           # Number of replicas for the read
           replicas: 2
           persistence:
-            # -- Size of persistent disk
-            size: 10Gi
-            # -- Storage class to be used.
             storageClass: nfs-share
+            size: 10Gi
         
           # Enable environment variables in config file
           # https://grafana.com/docs/loki/latest/configuration/#use-environment-variables-in-the-configuration
@@ -134,10 +137,8 @@ spec:
         
         # Configuration for the gateway
         gateway:
-          # -- Specifies whether the gateway should be enabled
-          enabled: true
-          # -- Number of replicas for the gateway
           replicas: 1
+          enabled: true
         
         # Disable mino installation
         minio:

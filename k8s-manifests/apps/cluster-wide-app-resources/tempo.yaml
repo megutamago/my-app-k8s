@@ -40,6 +40,13 @@ spec:
     helm: 
       releaseName: tempo-distributed
       values: |
+        # Enable Serivce Monitor
+        metaMonitoring:
+          serviceMonitor:
+            enabled: true
+            labels:
+              release: prometheus
+        
         # Enable trace ingestion
         traces:
           otlp:

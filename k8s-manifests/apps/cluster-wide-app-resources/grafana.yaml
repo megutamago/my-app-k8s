@@ -31,6 +31,12 @@ spec:
         adminUser: grafana
         adminPassword: grafana
         replicas: 2
+        
+        serviceMonitor:
+          enabled: true
+          labels:
+            release: prometheus
+          
         persistence:
           type: pvc
           enabled: true
@@ -41,6 +47,7 @@ spec:
             - kubernetes.io/pvc-protection
           inMemory:
             enabled: true
+        
         resource:
           limits:
             cpu: 200m
@@ -48,6 +55,7 @@ spec:
           requests:
             cpu: 100m
             memory: 128Mi
+
         datasources:
           datasources1.yaml:
             apiVersion: 1
@@ -65,6 +73,7 @@ spec:
                 httpMethod: POST
                 manageAlerts: true
                 prometheusType: Prometheus
+
           datasources2.yaml:
             apiVersion: 1
             datasources:
@@ -84,6 +93,7 @@ spec:
                     matcherRegex: '"request_X-B3-Traceid":"(\w+)"'
                     name: TraceID
                     url: $${__value.raw}
+
           datasources3.yaml:
             apiVersion: 1
             datasources:
@@ -121,6 +131,7 @@ spec:
                   enabled: true
                 lokiSearch:
                   datasourceUid: 'Loki'
+          
           datasources4.yaml:
            apiVersion: 1
            datasources:
@@ -128,6 +139,7 @@ spec:
              type: grafana-pyroscope-datasource
              uid: Pyroscope
              url: http://pyroscope-querier.pyroscope:4040
+             
         dashboards:
           default:
             prometheus-stats:
