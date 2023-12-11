@@ -1,11 +1,8 @@
-- name: shell minio install
+- name: shell minio install 1
   shell: |
     curl https://dl.min.io/client/mc/release/linux-amd64/mc \
-    --create-dirs \
-    -o $HOME/minio-binaries/mc
-
-- name: shell minio install
-  shell: |
+      --create-dirs \
+      -o $HOME/minio-binaries/mc && \
     chmod +x $HOME/minio-binaries/mc && \
     export PATH=$PATH:$HOME/minio-binaries/
 
@@ -22,7 +19,7 @@
 
 - name: shell argocd cli install
   shell: |
-    curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-    sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+    curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 && \
+    sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd && \
     rm argocd-linux-amd64
 
