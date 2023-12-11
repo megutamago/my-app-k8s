@@ -69,11 +69,11 @@ repoServer:
   replicaCount: 1
   resources:
     limits:
-      cpu: 2000m
-      memory: 512Mi
+      cpu: 2300m
+      memory: 768Mi
     requests:
-      cpu: 750m
-      memory: 200Mi
+      cpu: 1000m
+      memory: 256Mi
 
 applicationSet:
   replicaCount: 1

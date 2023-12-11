@@ -10,7 +10,7 @@ nodeRegistration:
 discovery:
   bootstrapToken:
     apiServerEndpoint: "192.168.11.100:8443"
-    token: "50f92b.77721b150aab7b05"
+    token: "a6158b.a01c33b6045591fe"
     unsafeSkipCAVerification: true
 controlPlane:
-  certificateKey: "4e0c133b2a984e225d70b5f452fca72125f2d90b9a3b2fcdd627a865fa328aee"
+  certificateKey: "6bb95a497559601cac2cb9019e9eb4ae195f8aeeee09fc54526888566794af8c"
