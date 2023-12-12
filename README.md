@@ -1,6 +1,7 @@
 # my-app-k8s
 
 # Minio -> Monitoring -> Metrics -> Drives をクリックすると使用可能な残容量を確認できる
+### Prometheus URL is unreachable. これ無視でもっかいクリックすると見れる
 
 mc alias set myminio http://10.96.146.202:9000 minio minio123
 

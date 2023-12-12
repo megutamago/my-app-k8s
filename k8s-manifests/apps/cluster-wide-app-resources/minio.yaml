@@ -42,6 +42,9 @@ spec:
       values: |
         rootUser: minio
         rootPassword: minio123
+        # environment:
+        #   MINIO_PROMETHEUS_URL: prometheus.monitoring
+        #   MINIO_PROMETHEUS_JOB_ID: 
         
         # Enable Serivce Monitor
         metrics:
