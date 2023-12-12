@@ -36,6 +36,11 @@ spec:
           portName: http-web
         grafana:
           enabled: false
+        prometheusOperator:
+          tls:
+            enabled: false
+          admissionWebhooks:
+            enabled: false
         prometheus:
           prometheusSpec:
             additionalScrapeConfigs:
