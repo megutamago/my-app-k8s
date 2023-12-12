@@ -6,7 +6,7 @@
 
 - name: Copy join_kubeadm_cp.yaml
   copy:
-    src: "./files/fetch/join_kubeadm_cp.yaml"
+    src: "/tmp/join_kubeadm_cp.yaml"
     dest: ~/
     mode: '0755'
 

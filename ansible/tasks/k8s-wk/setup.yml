@@ -4,7 +4,7 @@
     dest: ~/
     mode: '0755'
   with_fileglob:
-  - "./files/fetch/join_kubeadm_wk.yaml"
+  - "/tmp/join_kubeadm_wk.yaml"
 
 - name: Execute join
   shell: kubeadm join --config ~/join_kubeadm_wk.yaml
