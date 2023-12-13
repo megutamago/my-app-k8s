@@ -1,5 +1,7 @@
 # my-app-k8s
 
+# k -n kubernetes-dashboard create token admin-user
+
 # Minio -> Monitoring -> Metrics -> Drives をクリックすると使用可能な残容量を確認できる
 ### Prometheus URL is unreachable. これ無視でもっかいクリックすると見れる
 
