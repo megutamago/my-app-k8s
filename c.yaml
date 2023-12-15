@@ -1,6 +1,0 @@
-k create clusterrolebinding insecure-dashboard \
---serviceaccount kubernetes-dashboard:kubernetes-dashboard \
---clusterrole view
-
-kd clusterrolebindings insecure-dashboard
-
