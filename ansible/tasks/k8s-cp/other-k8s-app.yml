@@ -1,0 +1,34 @@
+
+# create namespace n8n
+- name: create namespace n8n
+  shell: kubectl create namespace n8n
+
+# install postgres operator
+# https://github.com/zalando/postgres-operator/tree/v1.10.1
+- name: install postgres operator
+  shell: helm repo add postgres-operator-charts https://opensource.zalando.com/postgres-operator/charts/postgres-operator
+
+- name: install postgres operator
+  shell: helm install postgres-operator postgres-operator-charts/postgres-operator
+
+- name: install postgres operator
+  shell: helm repo add postgres-operator-ui-charts https://opensource.zalando.com/postgres-operator/charts/postgres-operator-ui
+
+- name: install postgres operator
+  shell: helm install postgres-operator-ui postgres-operator-ui-charts/postgres-operator-ui
+
+# postgres operator ui LB
+# - name: postgres operator ui LB
+#   copy:
+#     src: ./files/cp/postgres-operator-ui-lb.yaml
+#     dest: /root
+#     mode: '0644'
+#   ignore_errors: yes
+
+# - name: postgres operator ui LB
+#   shell: kubectl apply -f postgres-operator-ui-lb.yaml
+
+# - name: remove file
+#   file:
+#     path: /root/postgres-operator-ui-lb.yaml
+#     state: absent
