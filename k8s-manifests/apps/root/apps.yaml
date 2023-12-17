@@ -71,6 +71,45 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
+  name: scrape-apps
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/megutamago/my-app-k8s
+        revision: main
+        directories:
+          - path: k8s-manifests/apps/myapp/scrape
+  template:
+    metadata:
+      name: "{{path.basenameNormalized}}"
+      namespace: argocd
+    spec:
+      project: scrape
+      source:
+        repoURL: https://github.com/megutamago/my-app-k8s
+        targetRevision: main
+        path: "{{path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: scrape
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: true
+        syncOptions:
+          - CreateNamespace=true
+        retry:
+          limit: -1
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 2m
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
   name: private-isu-apps
   namespace: argocd
 spec:
@@ -83,7 +122,7 @@ spec:
   template:
     metadata:
       # 各Application が argocd namespace に配置されるため prefix した方が安全
-      name: "private-isu-{{path.basenameNormalized}}"
+      name: "{{path.basenameNormalized}}"
       namespace: argocd
     spec:
       project: private-isu
@@ -111,7 +150,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: scrape-apps
+  name: misskey-apps
   namespace: argocd
 spec:
   generators:
@@ -119,21 +158,20 @@ spec:
         repoURL: https://github.com/megutamago/my-app-k8s
         revision: main
         directories:
-          - path: k8s-manifests/apps/myapp/scrape
+          - path: k8s-manifests/apps/myapp/misskey
   template:
     metadata:
-      # 各Application が argocd namespace に配置されるため prefix した方が安全
-      name: "scrape-{{path.basenameNormalized}}"
+      name: "{{path.basenameNormalized}}"
       namespace: argocd
     spec:
-      project: scrape
+      project: misskey
       source:
         repoURL: https://github.com/megutamago/my-app-k8s
         targetRevision: main
         path: "{{path}}"
       destination:
         server: https://kubernetes.default.svc
-        namespace: scrape
+        namespace: misskey
       syncPolicy:
         automated:
           prune: true
