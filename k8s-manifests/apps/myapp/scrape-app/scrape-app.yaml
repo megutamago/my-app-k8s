@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: vpn-test1
+  name: scrape-app
 spec:
   hostNetwork: true
   containers:
-    - name: vpn-test1
+    - name: scrape-app
       image: melanmeg/testimage1
       securityContext:
         privileged: true
