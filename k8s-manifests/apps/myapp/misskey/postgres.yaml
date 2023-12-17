@@ -1,0 +1,141 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: init-data
+  namespace: misskey
+data:
+  init-data.sh: |
+    #!/bin/bash
+    set -e;
+    if [ -n "${POSTGRES_NON_ROOT_USER:-}" ] && [ -n "${POSTGRES_NON_ROOT_PASSWORD:-}" ]; then
+    	psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+    		CREATE USER "${POSTGRES_NON_ROOT_USER}" WITH PASSWORD '${POSTGRES_NON_ROOT_PASSWORD}';
+    		GRANT ALL PRIVILEGES ON DATABASE ${POSTGRES_DB} TO "${POSTGRES_NON_ROOT_USER}";
+    	EOSQL
+    else
+    	echo "SETUP INFO: No Environment variables given!"
+    fi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: postgresql-pv
+  namespace: misskey
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  namespace: misskey
+  name: postgres-secret
+type: Opaque
+stringData:
+  POSTGRES_USER: changeUser
+  POSTGRES_PASSWORD: changePassword
+  POSTGRES_DB: misskey
+  POSTGRES_NON_ROOT_USER: changeUser
+  POSTGRES_NON_ROOT_PASSWORD: changePassword
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: postgres-misskey
+  name: postgres
+  namespace: misskey
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: postgres-misskey
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service: postgres-misskey
+    spec:
+      containers:
+        - image: postgres:11
+          name: postgres
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 1000Mi
+            requests:
+              cpu: 100m
+              memory: 200Mi
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: postgresql-pv
+              mountPath: /var/lib/postgresql/data
+            - name: init-data
+              mountPath: /docker-entrypoint-initdb.d/init-misskey-user.sh
+              subPath: init-data.sh
+          env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata      
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              value: misskey
+            - name: POSTGRES_NON_ROOT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_NON_ROOT_USER
+            - name: POSTGRES_NON_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_NON_ROOT_PASSWORD
+            - name:   POSTGRES_HOST
+              value: postgres-service
+            - name: POSTGRES_PORT
+              value: '5432'
+      restartPolicy: Always
+      volumes:
+        - name: postgresql-pv
+          persistentVolumeClaim:
+            claimName: postgresql-pv
+        - name: postgres-secret
+          secret:
+            secretName: postgres-secret
+        - name: init-data
+          configMap:
+            name: init-data
+            defaultMode: 0744
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: postgres-misskey
+  name: postgres-service
+  namespace: misskey
+spec:
+  clusterIP: None
+  ports:
+    - name: "5432"
+      port: 5432
+      targetPort: 5432
+      protocol: TCP
+  selector:
+    service: postgres-misskey
