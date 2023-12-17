@@ -15,8 +15,12 @@
     state: absent
 
 # create namespace n8n
-- name: create namespace n8n
+- name: shell
   shell: kubectl create namespace n8n
+
+# create namespace postgres-operator
+- name: shell
+  shell: kubectl create namespace postgres-operator
 
 # install postgres operator
 # https://github.com/zalando/postgres-operator/tree/v1.10.1
@@ -24,13 +28,13 @@
   shell: helm repo add postgres-operator-charts https://opensource.zalando.com/postgres-operator/charts/postgres-operator
 
 - name: shell
-  shell: helm install postgres-operator postgres-operator-charts/postgres-operator
+  shell: helm install postgres-operator postgres-operator-charts/postgres-operator --namespace=postgres-operator
 
 - name: shell
   shell: helm repo add postgres-operator-ui-charts https://opensource.zalando.com/postgres-operator/charts/postgres-operator-ui
 
 - name: shell
-  shell: helm install postgres-operator-ui postgres-operator-ui-charts/postgres-operator-ui
+  shell: helm install postgres-operator-ui postgres-operator-ui-charts/postgres-operator-ui --namespace=postgres-operator
 
 # postgres operator ui LB
 # - name: copy

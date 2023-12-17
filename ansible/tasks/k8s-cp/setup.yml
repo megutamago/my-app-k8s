@@ -143,13 +143,13 @@
 - name: fetch joinfile cp
   fetch:
     src: "~/work/join_kubeadm_cp.yaml"
-    dest: "/tmp/"
+    dest: "./files/fetch/"
     flat: yes
 
 - name: fetch joinfile wk
   fetch:
     src: "~/work/join_kubeadm_wk.yaml"
-    dest: "/tmp/"
+    dest: "./files/fetch/"
     flat: yes
 
 - name: set bashrc
