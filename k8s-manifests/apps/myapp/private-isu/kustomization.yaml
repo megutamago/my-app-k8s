@@ -3,3 +3,5 @@ kind: Kustomization
 namespace: myapp
 resources:
   - nginx.yaml
+  - app.yaml
+  - mysql.yaml
