@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: scrape-app
+  name: scrape
 spec:
   hostNetwork: true
   containers:
-    - name: scrape-app
+    - name: scrape
       image: melanmeg/testimage1
       securityContext:
         privileged: true

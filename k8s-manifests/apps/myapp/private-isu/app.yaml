@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: private-isu
+spec:
+  hostNetwork: true
+  containers:
+    - name: private-isu
+      image: nginx:1.25.3

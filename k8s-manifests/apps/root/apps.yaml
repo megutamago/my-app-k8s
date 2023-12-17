@@ -71,7 +71,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: myapp-apps
+  name: private-isu-apps
   namespace: argocd
 spec:
   generators:
@@ -79,21 +79,61 @@ spec:
         repoURL: https://github.com/megutamago/my-app-k8s
         revision: main
         directories:
-          - path: k8s-manifests/apps/myapp/*
+          - path: k8s-manifests/apps/myapp/private-isu/*
   template:
     metadata:
       # 各Application が argocd namespace に配置されるため prefix した方が安全
-      name: "myapp-{{path.basenameNormalized}}"
+      name: "private-isu-{{path.basenameNormalized}}"
       namespace: argocd
     spec:
-      project: myapp
+      project: private-isu
       source:
         repoURL: https://github.com/megutamago/my-app-k8s
         targetRevision: main
         path: "{{path}}"
       destination:
         server: https://kubernetes.default.svc
-        namespace: myapp
+        namespace: private-isu
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: true
+        syncOptions:
+          - CreateNamespace=true
+        retry:
+          limit: -1
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 2m
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: scrape-apps
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/megutamago/my-app-k8s
+        revision: main
+        directories:
+          - path: k8s-manifests/apps/myapp/scrape/*
+  template:
+    metadata:
+      # 各Application が argocd namespace に配置されるため prefix した方が安全
+      name: "scrape-{{path.basenameNormalized}}"
+      namespace: argocd
+    spec:
+      project: scrape
+      source:
+        repoURL: https://github.com/megutamago/my-app-k8s
+        targetRevision: main
+        path: "{{path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: scrape
       syncPolicy:
         automated:
           prune: true

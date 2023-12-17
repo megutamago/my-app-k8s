@@ -35,14 +35,35 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: myapp
+  name: scrape
   namespace: argocd
 spec:
-  description: myapp yeahyeah
+  description: scrape yeahyeah
   sourceRepos:
     - '*'
   destinations:
-    - namespace: myapp
+    - namespace: scrape
+      server: https://kubernetes.default.svc
+    # Application 及び ApplicationSet リソースは
+    # argocd namespace に置かないとArgoCDに認識されないため、
+    # argocd namespace へのデプロイも許可する。
+    - namespace: argocd
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: private-isu
+  namespace: argocd
+spec:
+  description: private-isu yeahyeah
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: private-isu
       server: https://kubernetes.default.svc
     # Application 及び ApplicationSet リソースは
     # argocd namespace に置かないとArgoCDに認識されないため、
