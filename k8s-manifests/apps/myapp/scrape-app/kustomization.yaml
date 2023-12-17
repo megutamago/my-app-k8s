@@ -3,10 +3,8 @@ kind: Kustomization
 namespace: myapp
 resources:
   - nginx.yaml
-  - scrape-app.yaml
-  - configmap.yaml
-  - services.yaml
-  - statefulset.yaml
+  - scrape.yaml
+  - mysql.yaml
 
 # ref: https://kubernetes.io/ja/docs/tasks/run-application/run-replicated-stateful-application/
 
