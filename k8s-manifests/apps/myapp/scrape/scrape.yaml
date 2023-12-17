@@ -6,7 +6,7 @@ spec:
   hostNetwork: true
   containers:
     - name: scrape
-      image: melanmeg/testimage1
+      image: melanmeg/testimage1:0.1
       securityContext:
         privileged: true
   imagePullSecrets:
