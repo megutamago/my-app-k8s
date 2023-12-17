@@ -9,7 +9,7 @@ spec:
   - name: http
     port: 4317
     targetPort: 4317
-    nodePort: 31005
+    nodePort: 30046
     protocol: TCP
   selector:
     app.kubernetes.io/component: distributor

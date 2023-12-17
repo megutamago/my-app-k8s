@@ -8,7 +8,7 @@ spec:
   ports:
   - port: 3100
     targetPort: 3100
-    nodePort: 31004
+    nodePort: 30045
     protocol: TCP
   selector:
     app.kubernetes.io/component: write

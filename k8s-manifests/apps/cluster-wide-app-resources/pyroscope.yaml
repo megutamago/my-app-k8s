@@ -8,7 +8,7 @@ spec:
   ports:
   - port: 4040
     targetPort: 4040
-    nodePort: 31006
+    nodePort: 30047
     protocol: TCP
   selector:
     app.kubernetes.io/component: querier
