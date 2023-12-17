@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: postgres-operator
+  namespace: argocd
+spec:
+  project: cluster-wide-apps
+  source:
+    chart: postgres-operator-charts
+    repoURL: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
+    targetRevision: v1.10.1
+    helm:
+      releaseName: postgres-operator
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: postgres-operator-ui
+  namespace: argocd
+spec:
+  project: cluster-wide-apps
+  source:
+    chart: postgres-operator-ui-charts
+    repoURL: https://opensource.zalando.com/postgres-operator/charts/postgres-operator-ui
+    targetRevision: v1.10.1
+    helm:
+      releaseName: postgres-operator-ui
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
