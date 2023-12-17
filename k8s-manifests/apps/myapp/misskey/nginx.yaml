@@ -1,19 +1,4 @@
 apiVersion: v1
-kind: Secret
-metadata:
-  name: tls-secret
-data:
-  # SSL証明書のBase64エンコードされた内容
-  # base64 -i tls.crt
-  # k8sで以下を実行
-  # export BASE64_ENCODED_CERTIFICATE=$(base64 -i tls.crt)
-  tls.crt: BASE64_ENCODED_CERTIFICATE  
-  # 秘密鍵のBase64エンコードされた内容
-  # base64 -i tls.key
-  # export BASE64_ENCODED_PRIVATE_KEY=$(base64 -i tls.crt)
-  tls.key: BASE64_ENCODED_PRIVATE_KEY
----
-apiVersion: v1
 kind: ConfigMap
 metadata:
   name: nginx
@@ -130,7 +115,7 @@ spec:
       volumes:
       - name: tls-certs
         secret:
-          secretName: tls-secret
+          secretName: misskey-nginx-tls-secret
       - name: nginx
         configMap:
           name: nginx
