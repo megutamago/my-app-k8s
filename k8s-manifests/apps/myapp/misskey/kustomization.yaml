@@ -3,9 +3,9 @@ kind: Kustomization
 namespace: myapp
 resources:
   # nginx
-  - nginx-config.yaml
-  - nginx.yaml
-  - secret.yaml
+  # - nginx-config.yaml
+  # - nginx.yaml
+  # - secret.yaml
   # postgres
   - postgres.yaml
 
