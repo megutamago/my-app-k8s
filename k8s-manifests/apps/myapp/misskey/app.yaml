@@ -6,6 +6,14 @@ metadata:
   name: misskey-default-config
 data:
   default.yml: |
+    url: https://example.tld/
+    port: 3000
+    db:
+      host: misskey-service.misskey
+      port: 5432
+      db: misskey
+      user: example-misskey-user # ここは先ほどImportしたデータベースのユーザーを指定してください
+      pass: example-misskey-pass # ここは先ほどImportしたデータベース名を指定してください
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -25,16 +33,24 @@ spec:
       - name: misskey
         image: misskey/misskey:2023.11.1
         ports:
-        - containerPort: 80
+        - containerPort: 3000
         volumeMounts:
         - name: misskey
-          mountPath: /misskey/.config
+          mountPath: /misskey/files
         - name: misskey-default-conf
           mountPath: /misskey/.config
       volumes:
       - name: misskey-default-conf
         configMap:
           name: misskey-default-config
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 5Gi
 ---
 apiVersion: v1
 kind: Service
