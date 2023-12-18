@@ -1,0 +1,52 @@
+# ref: https://qiita.com/arila/items/3c453b7e802639eebdea
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: misskey-default-config
+data:
+  default.yml: |
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: misskey-deployment
+spec:
+  selector:
+    matchLabels:
+      app: misskey
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: misskey
+    spec:
+      containers:
+      - name: misskey
+        image: misskey/misskey:2023.11.1
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: misskey
+          mountPath: /misskey/.config
+        - name: misskey-default-conf
+          mountPath: /misskey/.config
+      volumes:
+      - name: misskey-default-conf
+        configMap:
+          name: misskey-default-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: misskey-service
+  labels:
+    app: misskey
+spec:
+  type: clusterIP
+  ports:
+  - port: 80
+    targetPort: 3000
+    protocol: TCP
+  selector:
+    app: misskey
