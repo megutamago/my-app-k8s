@@ -3,6 +3,16 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  name: misskey-files
+data:
+  docker.env: |
+    POSTGRES_DB=misskey
+    POSTGRES_USER=misskey-user
+    POSTGRES_PASSWORD=misskey-pass
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
   name: misskey-config
 data:
   default.yml: |
