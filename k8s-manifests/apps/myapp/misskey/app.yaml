@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: misskey
-        image: misskey/misskey:latest # 2023.11.1
+        image: misskey/misskey:2023.11.1
         ports:
         - containerPort: 3000
         volumeMounts:
