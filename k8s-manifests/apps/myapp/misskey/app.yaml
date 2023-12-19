@@ -34,15 +34,15 @@ spec:
         image: misskey/misskey:2023.11.1
         ports:
         - containerPort: 3000
-  #       volumeMounts:
-  #       - name: misskey
-  #         mountPath: /misskey/files
-  #       - name: misskey-default-conf
-  #         mountPath: /misskey/.config
-  #     volumes:
-  #     - name: misskey-default-conf
-  #       configMap:
-  #         name: misskey-default-config
+        volumeMounts:
+        - name: misskey
+          mountPath: /misskey/files
+        - name: misskey-default-conf
+          mountPath: /misskey/.config
+      volumes:
+      - name: misskey-default-conf
+        configMap:
+          name: misskey-default-config
   # volumeClaimTemplates:
   # - metadata:
   #     name: data
