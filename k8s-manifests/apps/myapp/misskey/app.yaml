@@ -9,11 +9,14 @@ data:
     url: https://example.tld/
     port: 3000
     db:
-      host: misskey-service.misskey
+      host: postgres-cluster.misskey
       port: 5432
       db: misskey
       user: misskey-user
       pass: misskey-pass
+    redis:
+      host: redis.misskey
+      port: 6379
 ---
 apiVersion: apps/v1
 kind: Deployment
