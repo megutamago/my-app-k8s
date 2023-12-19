@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis
+  name: redis-service
 spec:
   type: clusterIP
   ports:
@@ -11,31 +11,29 @@ spec:
   selector:
     app: redis
 ---
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: redis
-  labels:
-    app: redis
+  name: redis-deployment
 spec:
-  restartPolicy: Always
-  containers:
-  - name: redis
-    image: redis:7
-    volumeMounts:
-    - mountPath: /data
-      name: redis-volume
-    resources:
-      limits:
-        memory: 100Mi
-        cpu: 250m
-    ports:
-    - containerPort: 6379
-  volumeClaimTemplates:
-  - metadata:
-      name: redis-volume
+  selector:
+    matchLabels:
+      app: redis
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis
     spec:
-      accessModes: ["ReadWriteOnce"]
-      resources:
-        requests:
-          storage: 5Gi
+      containers:
+        - name: redis
+          image: redis:7
+          ports:
+            - containerPort: 6379
+          resources:
+            requests:
+              memory: 64Mi
+              cpu: 100m
+            limits:
+              memory: 128Mi
+              cpu: 250m
