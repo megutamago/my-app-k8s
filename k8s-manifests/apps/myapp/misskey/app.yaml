@@ -45,7 +45,7 @@ spec:
         command: ["pnpm", "run", "migrateandstart"]
       volumes:
       - name: misskey-files
-        configMap:
+        persistentVolumeClaim:
           name: misskey-files
       - name: misskey-config
         configMap:
