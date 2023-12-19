@@ -49,6 +49,9 @@ spec:
       - name: misskey-config
         configMap:
           name: misskey-config
+          items:
+          - key: default.yml
+            path: default.yml
   volumeClaimTemplates:
   - metadata:
       name: misskey-files
