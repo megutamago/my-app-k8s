@@ -11,9 +11,13 @@ spec:
     zalando:  # database owner
     - superuser
     - createdb
+    misskey-user:  # database owner
+    - superuser
+    - createdb
     foo_user: []  # role for application foo
   databases:
     foo: zalando  # dbname: owner
+    misskey: misskey-user  # dbname: owner
   preparedDatabases:
     bar: {}
   postgresql:
@@ -21,7 +25,6 @@ spec:
 
 # ref: https://github.com/zalando/postgres-operator/tree/v1.10.1
 
-# k9sでpodどれかポートフォワーディングして以下コマンドを実施
 # export PGPASSWORD=$(kubectl get secret -n misskey postgres.postgres-cluster.credentials.postgresql.acid.zalan.do -o 'jsonpath={.data.password}' | base64 -d)
 # export PGSSLMODE=require
-# psql -U postgres
+# psql -U postgres -h 10.0.2.146

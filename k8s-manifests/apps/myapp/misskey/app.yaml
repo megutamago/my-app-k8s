@@ -12,8 +12,8 @@ data:
       host: misskey-service.misskey
       port: 5432
       db: misskey
-      user: example-misskey-user # ここは先ほどImportしたデータベースのユーザーを指定してください
-      pass: example-misskey-pass # ここは先ほどImportしたデータベース名を指定してください
+      user: misskey-user
+      pass: misskey-pass
 ---
 apiVersion: apps/v1
 kind: Deployment
