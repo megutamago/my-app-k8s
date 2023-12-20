@@ -38,8 +38,8 @@ spec:
         env:
         - name: PGSSLMODE
           value: require
-        - name: NODE_TLS_REJECT_UNAUTHORIZED
-          value: 0
+        # - name: NODE_TLS_REJECT_UNAUTHORIZED
+        #   value: 0
         ports:
         - containerPort: 3000
         volumeMounts:
