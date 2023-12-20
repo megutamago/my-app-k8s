@@ -38,8 +38,6 @@ spec:
         ports:
         - containerPort: 3000
         volumeMounts:
-        - mountPath: /misskey/files
-          name: misskey-files
         - mountPath: /misskey/.config
           name: misskey-config
         command: ["pnpm", "run", "migrateandstart"]
@@ -50,14 +48,6 @@ spec:
           items:
           - key: default.yml
             path: default.yml
-  volumeClaimTemplates:
-  - metadata:
-      name: misskey-files
-    spec:
-      accessModes: ["ReadWriteOnce"]
-      resources:
-        requests:
-          storage: 5Gi
 ---
 apiVersion: v1
 kind: Service
