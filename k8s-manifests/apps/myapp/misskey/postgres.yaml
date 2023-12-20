@@ -22,23 +22,23 @@ spec:
     bar: {}
   postgresql:
     version: "15"
-    parameters:
-      shared_buffers: "64MB"
-      max_connections: "50"
-      log_statement: "all"
-  patroni:
-    initdb:
-      encoding: "UTF8"
-      locale: "ja_JP.UTF-8"
-      data-checksums: "true"
-    # pg_hba:
-    # - host all all 0.0.0.0/0 md5
+    # parameters:
+    #   shared_buffers: "64MB"
+    #   max_connections: "50"
+    #   log_statement: "all"
+  # patroni:
+  #   initdb:
+  #     encoding: "UTF8"
+  #     locale: "ja_JP.UTF-8"
+  #     data-checksums: "true"
+  #   pg_hba:
+  #   - host all all 0.0.0.0/0 md5
 
 # ref: https://github.com/zalando/postgres-operator/tree/v1.10.1
 
 export PGPASSWORD=$(kubectl get secret -n misskey postgres.postgres-cluster.credentials.postgresql.acid.zalan.do -o 'jsonpath={.data.password}' | base64 -d)
 export PGSSLMODE=require
-psql -U postgres -h 10.0.2.123
+psql -U postgres -h 10.0.2.155
 
 # ALTER ROLE "misskey-user" WITH PASSWORD 'misskey-pass';
 # export PGPASSWORD=misskey-pass
