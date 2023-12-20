@@ -36,13 +36,15 @@ spec:
 
 # ref: https://github.com/zalando/postgres-operator/tree/v1.10.1
 
-# export PGPASSWORD=$(kubectl get secret -n misskey postgres.postgres-cluster.credentials.postgresql.acid.zalan.do -o 'jsonpath={.data.password}' | base64 -d)
-# export PGSSLMODE=require
-# kd pod -n misskey postgres-cluster-0 | grep IP
-# psql -U postgres -h 10.0.2.112
-# k get pod -n misskey
+export PGPASSWORD=$(kubectl get secret -n misskey postgres.postgres-cluster.credentials.postgresql.acid.zalan.do -o 'jsonpath={.data.password}' | base64 -d)
+export PGSSLMODE=require
+kd pod -n misskey postgres-cluster-0 | grep IP
+psql -U postgres -h 10.0.2.8
+k get pod -n misskey
 
 # ALTER ROLE "misskey-user" WITH PASSWORD 'misskey-pass';
 # export PGPASSWORD=misskey-pass
 # export PGSSLMODE=require
 # psql -U misskey-user -d misskey -h 10.0.2.95
+
+# k delete pod -n misskey postgres-cluster-0 
