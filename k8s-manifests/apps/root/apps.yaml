@@ -101,6 +101,7 @@ spec:
           allowEmpty: true
         syncOptions:
           - CreateNamespace=true
+          - Replace=true
         retry:
           limit: -1
           backoff:
@@ -140,6 +141,7 @@ spec:
           allowEmpty: true
         syncOptions:
           - CreateNamespace=true
+          - Replace=true
         retry:
           limit: -1
           backoff:
