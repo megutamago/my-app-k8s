@@ -28,3 +28,8 @@ spec:
 # export PGPASSWORD=$(kubectl get secret -n misskey postgres.postgres-cluster.credentials.postgresql.acid.zalan.do -o 'jsonpath={.data.password}' | base64 -d)
 # export PGSSLMODE=require
 # psql -U postgres -h 10.0.2.146
+
+# ALTER ROLE "misskey-user" WITH PASSWORD 'misskey-pass';
+# export PGPASSWORD=misskey-pass
+# export PGSSLMODE=require
+# psql -U misskey-user -d misskey -h 10.0.2.146
