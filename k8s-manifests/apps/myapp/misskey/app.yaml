@@ -45,7 +45,7 @@ spec:
         volumeMounts:
         - mountPath: /misskey/.config
           name: misskey-config
-        command: ["pnpm", "run", "start"]
+        command: ["pnpm", "run", "init"]
       volumes:
       - name: misskey-config
         configMap:
