@@ -11,7 +11,7 @@ spec:
     app: redis
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: redis-deployment
 spec:
