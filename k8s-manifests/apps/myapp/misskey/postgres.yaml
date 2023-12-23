@@ -22,10 +22,10 @@ spec:
     bar: {}
   postgresql:
     version: "15"
-    parameters:
-      shared_buffers: "64MB"
-      max_connections: "50"
-      log_statement: "all"
+  #   parameters:
+  #     shared_buffers: "64MB"
+  #     max_connections: "50"
+  #     log_statement: "all"
   # patroni:
   #   initdb:
   #     encoding: "UTF8"
@@ -40,7 +40,7 @@ spec:
 # export PGPASSWORD=$(kubectl get secret -n misskey postgres.postgres-cluster.credentials.postgresql.acid.zalan.do -o 'jsonpath={.data.password}' | base64 -d)
 # export PGSSLMODE=require
 # kd pod -n misskey postgres-cluster-0 | grep IP
-# psql -U postgres -h 10.0.2.246
+# psql -U postgres -h 10.0.2.19
 # k get pod -n misskey
 
 # ALTER ROLE "misskey-user" WITH PASSWORD 'misskey-pass';
