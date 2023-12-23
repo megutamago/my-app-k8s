@@ -35,6 +35,9 @@ spec:
       containers:
         - name: misskey
           image: misskey/misskey:2023.10.2
+          env:
+          - name: PGSSLMODE
+            value: require
           ports:
             - name: web
               containerPort: 3000

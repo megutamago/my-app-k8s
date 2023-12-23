@@ -51,6 +51,6 @@ spec:
 # ALTER ROLE "misskey-user" WITH PASSWORD 'misskey-pass';
 # export PGPASSWORD=misskey-pass
 # export PGSSLMODE=require
-# psql -U misskey-user -d misskey -h 10.0.2.87
+# psql -U misskey-user -d misskey -h 10.0.2.11
 
 # k delete pod -n misskey postgres-cluster-0 
