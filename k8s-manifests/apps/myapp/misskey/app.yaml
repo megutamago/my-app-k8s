@@ -26,33 +26,52 @@ spec:
   selector:
     matchLabels:
       app: misskey
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
         app: misskey
     spec:
       containers:
-      - name: misskey
-        image: misskey/misskey:latest
-        env:
-        - name: PGSSLMODE
-          value: require
-        # - name: NODE_TLS_REJECT_UNAUTHORIZED
-        #   value: "0"
-        ports:
-        - containerPort: 3000
-        volumeMounts:
-        - mountPath: /misskey/.config
-          name: misskey-config
-        command: ["pnpm", "run", "migrateandstart"]
+        - name: misskey
+          image: misskey/misskey:2023.10.2
+          ports:
+            - name: web
+              containerPort: 3000
+              protocol: TCP
+          volumeMounts:
+            - name: misskey-config
+              mountPath: /misskey/.config
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 2048Mi
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
       volumes:
-      - name: misskey-config
-        configMap:
-          name: misskey-config
-          items:
-          - key: default.yml
-            path: default.yml
+        - name: misskey-config
+          configMap:
+            name: misskey-config
+            items:
+              - key: default.yml
+                path: default.yml
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 20
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - misskey
+                topologyKey: "kubernetes.io/hostname"
 ---
 apiVersion: v1
 kind: Service
