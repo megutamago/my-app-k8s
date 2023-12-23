@@ -11,14 +11,13 @@ spec:
     app: redis
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: redis-statefulset
+  name: redis
 spec:
   selector:
     matchLabels:
       app: redis
-  replicas: 1
   template:
     metadata:
       labels:
@@ -26,12 +25,12 @@ spec:
     spec:
       containers:
         - name: redis
-          image: redis:7.2.2-alpine3.18
+          image: eqalpha/keydb:x86_64_v6.3.3
           command: ["/bin/sh"]
-          args: ["-c", "redis-server"]
+          args: ["-c", "keydb-server"]
           resources:
             requests:
-              memory: 100Mi
+              memory: 50Mi
               cpu: 50m
             limits:
               memory: 500Mi
@@ -40,14 +39,3 @@ spec:
             - name: redis
               containerPort: 6379
               protocol: TCP
-          volumeMounts:
-            - name: redis-data
-              mountPath: /data
-  volumeClaimTemplates:
-  - metadata:
-      name: redis-data
-    spec:
-      accessModes: ["ReadWriteOnce"]
-      resources:
-        requests:
-          storage: 10Gi
