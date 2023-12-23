@@ -34,13 +34,12 @@ spec:
     spec:
       containers:
       - name: misskey
-        image: ghcr.io/niri-la/misskey.niri.la:v13.13.2-kinel
-        imagePullPolicy: IfNotPresent
+        image: okteto.dev/misskey
         env:
         - name: PGSSLMODE
           value: require
-        # - name: NODE_TLS_REJECT_UNAUTHORIZED
-        #   value: "0"
+        - name: NODE_TLS_REJECT_UNAUTHORIZED
+          value: "0"
         ports:
         - containerPort: 3000
         volumeMounts:
