@@ -14,6 +14,19 @@ data:
       db: misskey
       user: misskey-user
       pass: misskey-pass
+    dbReplications: false
+    redis:
+      host: redis-service.misskey
+      port: 6379
+    id: 'aidx'
+    proxyBypassHosts:
+      - api.deepl.com
+      - api-free.deepl.com
+      - www.recaptcha.net
+      - hcaptcha.com
+      - challenges.cloudflare.com
+    proxyRemoteFiles: true
+    signToActivityPubGet: true
 ---
 apiVersion: apps/v1
 kind: Deployment
