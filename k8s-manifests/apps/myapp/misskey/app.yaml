@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: misskey
-        image: okteto.dev/misskey
+        image: misskey/misskey:latest
         env:
         - name: PGSSLMODE
           value: require
@@ -45,7 +45,7 @@ spec:
         volumeMounts:
         - mountPath: /misskey/.config
           name: misskey-config
-        # command: ["pnpm", "run", "migrateandstart"]
+        command: ["pnpm", "run", "start"]
       volumes:
       - name: misskey-config
         configMap:
