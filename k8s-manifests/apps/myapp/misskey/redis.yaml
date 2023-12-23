@@ -47,3 +47,11 @@ spec:
         - name: redis-data
           persistentVolumeClaim:
             claimName: redis-data
+  volumeClaimTemplates:
+  - metadata:
+      name: redis-data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 10Gi
