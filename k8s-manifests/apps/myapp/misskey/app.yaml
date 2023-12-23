@@ -14,9 +14,6 @@ data:
       db: misskey
       user: misskey-user
       pass: misskey-pass
-    redis:
-      host: redis-service.misskey
-      port: 6379
 ---
 apiVersion: apps/v1
 kind: Deployment
