@@ -13,9 +13,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: eqalpha/keydb:x86_64_v6.3.3
-          command: ["/bin/sh"]
-          args: ["-c", "keydb-server"]
+          image: redis:7
           resources:
             requests:
               memory: 50Mi
@@ -31,7 +29,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-service
+  name: redis
 spec:
   ports:
   - port: 6379
