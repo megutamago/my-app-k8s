@@ -7,6 +7,8 @@ data:
     port 6379
     bind 0.0.0.0 ::1
     requirepass password
+    min-replicas-to-write 1
+    min-replicas-max-lag 10
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -26,7 +28,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: redis:7
+          image: redis:6
           ports:
             - containerPort: 6379
           volumeMounts:
