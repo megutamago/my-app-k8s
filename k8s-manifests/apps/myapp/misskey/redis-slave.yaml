@@ -65,5 +65,5 @@ spec:
     spec:
       containers:
       - name: health-check-container
-        image: YOUR_CUSTOM_IMAGE
+        image: redis:7
         command: ["sh", "-c", "while true; do redis-cli -h redis-master-service.misskey -p 6379 INFO replication | grep role:master; if [ $? -eq 0 ]; then exit 0; else sleep 5; fi; done"]
