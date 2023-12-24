@@ -79,18 +79,6 @@ spec:
             items:
               - key: default.yml
                 path: default.yml
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 20
-              podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: app
-                      operator: In
-                      values:
-                        - misskey
-                topologyKey: "kubernetes.io/hostname"
 ---
 apiVersion: v1
 kind: Service
