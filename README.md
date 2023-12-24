@@ -1,5 +1,9 @@
 # my-app-k8s
 
+# kubectl top pod -A --sort-by cpu
+
+# kubectl api-resources
+
 # k -n kubernetes-dashboard create token admin-user
 
 # Minio -> Monitoring -> Metrics -> Drives をクリックすると使用可能な残容量を確認できる
