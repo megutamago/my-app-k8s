@@ -55,9 +55,6 @@
   shell: helm install postgres-operator-ui postgres-operator-ui-charts/postgres-operator-ui --namespace=postgres-operator
 
 # postgres operator ui LB
-- name: shell
-  shell: kubectl create namespace postgres-operator
-
 - name: copy
   copy:
     src: ./files/cp/postgres-operator-ui-lb.yaml
