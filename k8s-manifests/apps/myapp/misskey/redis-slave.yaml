@@ -5,9 +5,10 @@ metadata:
 data:
   redis.conf: |
     port 6379
-    bind 0.0.0.0 ::1
+    bind 0.0.0.0 -::1
     masterauth password
     replicaof redis-master-service.misskey 6379
+    replica-read-only yes
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -27,7 +28,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: redis:7
+          image: redis:6
           ports:
             - containerPort: 6379
           volumeMounts:
