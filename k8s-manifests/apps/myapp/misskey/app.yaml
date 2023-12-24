@@ -16,7 +16,7 @@ data:
     dbReplications: false
     redis:
       host: redis-service.misskey
-      port: 26379
+      port: 6379
     id: 'aidx'
     proxyBypassHosts:
       - api.deepl.com
