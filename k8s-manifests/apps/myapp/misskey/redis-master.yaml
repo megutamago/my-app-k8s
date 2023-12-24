@@ -48,3 +48,16 @@ spec:
         resources:
           requests:
             storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-master-service
+spec:
+  selector:
+    app: redis
+    role: master
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379
