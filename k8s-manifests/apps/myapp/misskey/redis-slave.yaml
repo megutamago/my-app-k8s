@@ -7,7 +7,7 @@ data:
     port 6379
     bind 0.0.0.0 ::1
     masterauth password
-    replicaof redis-master-service.misskeya 6379
+    replicaof redis-master-service.misskey 6379
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -36,16 +36,6 @@ spec:
             - name: slave-config
               mountPath: "/etc/redis"
               readOnly: true
-          livenessProbe:
-            tcpSocket:
-              port: 6379
-            initialDelaySeconds: 15
-            periodSeconds: 10
-          readinessProbe:
-            tcpSocket:
-              port: 6379
-            initialDelaySeconds: 5
-            periodSeconds: 5
       volumes:
         - name: slave-config
           configMap:
@@ -58,3 +48,22 @@ spec:
         resources:
           requests:
             storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-health-check
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-health-check
+  template:
+    metadata:
+      labels:
+        app: redis-health-check
+    spec:
+      containers:
+      - name: health-check-container
+        image: YOUR_CUSTOM_IMAGE
+        command: ["sh", "-c", "while true; do redis-cli -h redis-master-service.misskey -p 6379 INFO replication | grep role:master; if [ $? -eq 0 ]; then exit 0; else sleep 5; fi; done"]
