@@ -22,7 +22,7 @@ spec:
             - "redis-server"
           args:
             - "--slaveof"
-            - "service-redis-master.default.svc.cluster.local"
+            - "service-redis-master.misskey.svc.cluster.local"
             - "6379"
             - "--protected-mode"
             - "no"
