@@ -5,7 +5,7 @@ metadata:
 data:
   redis.conf: |
     port 26379
-    sentinel monitor mymaster redis-master-service.misskey.svc.cluster.local 6379 2
+    sentinel monitor mymaster redis-master-service.misskey 6379 2
     sentinel down-after-milliseconds mymaster 5000
     sentinel parallel-syncs mymaster 1
     sentinel failover-timeout mymaster 60000
@@ -15,7 +15,6 @@ kind: StatefulSet
 metadata:
   name: redis-sentinel
 spec:
-  serviceName: redis-sentinel-svc
   replicas: 3
   selector:
     matchLabels:
@@ -30,9 +29,6 @@ spec:
       containers:
         - name: redis-sentinel
           image: redis:7
-          # command:
-          #   - redis-sentinel
-          #   - "/etc/redis/redis-sentinel.conf"
           resources:
             requests:
               memory: 50Mi
