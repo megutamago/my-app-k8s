@@ -6,4 +6,5 @@ resources:
   - app.yaml
   - postgres.yaml
   - redis-master.yaml
+  - redis-slave.yaml
   - redis-sentinel.yaml
