@@ -15,7 +15,6 @@ kind: StatefulSet
 metadata:
   name: redis-sentinel
 spec:
-  serviceName: redis-sentinel-svc
   replicas: 3
   selector:
     matchLabels:
