@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: redis-master-config
+  name: redis-replica-config
 data:
   redis.conf: |
     port 6379
@@ -45,7 +45,7 @@ spec:
       volumes:
         - name: master-config
           configMap:
-            name: redis-master-config
+            name: redis-replica-config
 ---
 apiVersion: v1
 kind: Service
