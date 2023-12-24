@@ -9,11 +9,11 @@ spec:
   numberOfInstances: 2
   users:
     zalando:  # database owner
-    - superuser
-    - createdb
+      - superuser
+      - createdb
     misskey-user:  # database owner
-    - superuser
-    - createdb
+      - superuser
+      - createdb
     foo_user: []  # role for application foo
   databases:
     foo: zalando  # dbname: owner
