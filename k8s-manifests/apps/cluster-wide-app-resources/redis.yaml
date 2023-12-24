@@ -33,14 +33,12 @@ spec:
   source:
     chart: redis-replication
     repoURL: https://ot-container-kit.github.io/helm-charts
-    targetRevision: 0.15.12
+    targetRevision: 0.15.11
     helm:
       releaseName: redis-replication
       values: |
-        # redissentinel:
-        #   clusterSize: 3
-        # redisSentinelConfig:
-        #   redisReplicationName: "redis-replication"
+        redisReplication:
+          clusterSize: 3
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: redis-operator
