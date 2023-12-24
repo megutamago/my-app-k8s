@@ -3,9 +3,10 @@ kind: ConfigMap
 metadata:
   name: redis-sentinel-config
 data:
-  redis.conf: |
+  sentinel.conf: |
     port 26379
     sentinel monitor mymaster redis-master-service.misskey 6379 2
+    sentinel auth-pass mymaster password
     sentinel down-after-milliseconds mymaster 5000
     sentinel parallel-syncs mymaster 1
     sentinel failover-timeout mymaster 60000
@@ -29,6 +30,9 @@ spec:
       containers:
         - name: redis-sentinel
           image: redis:7
+          command:
+            - redis-sentinel
+            - "/etc/redis/sentinel.conf"
           resources:
             requests:
               memory: 50Mi
