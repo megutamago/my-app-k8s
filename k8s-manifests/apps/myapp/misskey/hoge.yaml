@@ -1,0 +1,100 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-configmap
+  namespace: myapp
+  labels:
+    app: myapp
+data:
+  redis.conf: |
+    port 6379
+    pidfile "/var/run/redis.pid"
+    logfile "/var/log/redis.log"
+    dbfilename "dump.rdb"
+    appendonly yes
+    appendfilename "appendonly.aof"
+    cluster-enabled yes
+    cluster-config-file /etc/redis-cluster.conf
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis-cluster-sts
+  namespace: myapp
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+      type: session-store
+  serviceName: redis-cluster-svc
+  replicas: 6
+  template:
+    metadata:
+      labels:
+        app: myapp
+        type: session-store
+      namespace: myapp
+    spec:
+      containers:
+      - name: redis
+        image: redis:6.2.6
+        ports:
+        - containerPort: 6379
+          name: redis
+        command: [
+          "redis-server",
+          "/redis/redis.conf"
+        ]
+        volumeMounts:
+          - name:  redis-config
+            mountPath: /redis
+      volumes:
+      - name: redis-config
+        configMap:
+          name: redis-configmap
+          items:
+          - key: redis.conf
+            path: redis.conf
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-redis-cluster
+  namespace: myapp
+spec:
+  ttlSecondsAfterFinished: 100
+  completions: 1
+  parallelism: 1
+  backoffLimit: 0
+  template:
+    spec:
+      containers:
+      - name: redis-cluster-job
+        image: redis-cluster-job
+        imagePullPolicy: Never
+        command: [
+          "/scripts/entrypoint.sh"
+        ]
+        env:
+          - name: K8S_SVC
+            value: redis-cluster-svc
+          - name: K8S_POD
+            value: redis-cluster-sts
+      restartPolicy: Never
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name:  redis-cluster-svc
+  namespace: myapp
+spec:
+  selector:
+    app:  myapp
+    type: session-store
+  type:  ClusterIP
+  clusterIP: None
+  ports:
+  - name:  redis
+    port:  6379
+    targetPort:  6379
