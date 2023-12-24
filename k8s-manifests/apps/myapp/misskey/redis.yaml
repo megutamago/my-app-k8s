@@ -4,9 +4,9 @@ metadata:
   name: redis-sentinel
 spec:
   clusterSize: 3
-  podSecurityContext:
-    runAsUser: 1000
-    fsGroup: 1000
+  # podSecurityContext:
+  #   runAsUser: 1000
+  #   fsGroup: 1000
   pdb:
     enabled: false
     minAvailable: 1
