@@ -15,7 +15,7 @@ data:
       user: misskey-user
     dbReplications: false
     redis:
-      host: redis.misskey
+      host: redis-service.misskey
       port: 6379
     id: 'aidx'
     proxyBypassHosts:
@@ -28,9 +28,9 @@ data:
     signToActivityPubGet: true
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: misskey-deployment
+  name: misskey-statefulset
 spec:
   selector:
     matchLabels:
