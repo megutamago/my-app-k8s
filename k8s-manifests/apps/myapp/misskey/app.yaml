@@ -13,7 +13,6 @@ data:
       port: 5432
       db: misskey
       user: misskey-user
-      pass: $POSTGRES_PASSWORD
     dbReplications: false
     redis:
       host: redis-service.misskey
@@ -48,7 +47,7 @@ spec:
           env:
           - name: PGSSLMODE
             value: require
-          - name: POSTGRES_PASSWORD
+          - name: PGPASSWORD
             valueFrom:
               secretKeyRef:
                 name: misskey-user.postgres-cluster.credentials.postgresql.acid.zalan.do
