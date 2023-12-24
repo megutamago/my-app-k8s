@@ -48,22 +48,22 @@ spec:
         resources:
           requests:
             storage: 1Gi
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: redis-health-check
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: redis-health-check
-  template:
-    metadata:
-      labels:
-        app: redis-health-check
-    spec:
-      containers:
-      - name: health-check-container
-        image: redis:7
-        command: ["sh", "-c", "while true; do redis-cli -h redis-master-service.misskeya -p 6379 INFO replication | grep role:master; if [ $? -eq 0 ]; then exit 0; else sleep 5; fi; done"]
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: redis-health-check
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: redis-health-check
+#   template:
+#     metadata:
+#       labels:
+#         app: redis-health-check
+#     spec:
+#       containers:
+#       - name: health-check-container
+#         image: redis:7
+#         command: ["sh", "-c", "while true; do redis-cli -h redis-master-service.misskeya -p 6379 INFO replication | grep role:master; if [ $? -eq 0 ]; then exit 0; else sleep 5; fi; done"]
