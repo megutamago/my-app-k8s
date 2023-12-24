@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-slave-config
+data:
+  redis.conf: |
+    port 6379
+    bind 0.0.0.0 ::1
+    masterauth password
+    replicaof redis-master-service.misskey 6379
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis-slave
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+      role: slave
+  template:
+    metadata:
+      labels:
+        app: redis
+        role: slave
+    spec:
+      containers:
+        - name: redis
+          image: redis:7
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - name: redis-data
+              mountPath: /data
+            - name: slave-config
+              mountPath: "/etc/redis"
+              readOnly: true
+      volumes:
+        - name: slave-config
+          configMap:
+            name: redis-slave-config
+  volumeClaimTemplates:
+    - metadata:
+        name: redis-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi

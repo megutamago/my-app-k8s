@@ -6,5 +6,5 @@ resources:
   - app.yaml
   - postgres.yaml
   - redis.yaml
-  - hoge1.yaml
-  - hoge2.yaml
+  - redis-master.yaml
+  - redis-slave.yaml

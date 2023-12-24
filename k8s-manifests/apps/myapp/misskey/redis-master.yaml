@@ -9,33 +9,29 @@ data:
     requirepass password
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: deployment-redis-master
-  labels:
-    name: deployment-redis-master
+  name: redis-master
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: redis-master
+      app: redis
+      role: master
   template:
     metadata:
       labels:
-        name: redis-master
+        app: redis
+        role: master
     spec:
-      subdomain: master
       containers:
         - name: redis
-          image: redis:6
-          command:
-            - "redis-server"
-          args:
-            - "--protected-mode"
-            - "yes"
+          image: redis:7
           ports:
             - containerPort: 6379
           volumeMounts:
+            - name: redis-data
+              mountPath: /data
             - name: master-config
               mountPath: "/etc/redis"
               readOnly: true
@@ -43,15 +39,24 @@ spec:
         - name: master-config
           configMap:
             name: redis-master-config
+  volumeClaimTemplates:
+    - metadata:
+        name: redis-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-redis-master
+  name: redis-master-service
 spec:
-  ports:
-    - port: 6379
-      targetPort: 6379
-      protocol: TCP
   selector:
-    app: redis-master
+    app: redis
+    role: master
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379
