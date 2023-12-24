@@ -1,21 +1,18 @@
-apiVersion: redis.redis.opstreelabs.in/v1beta2
-kind: RedisCluster
+apiVersion: redis.redis.opstreelabs.in/v1beta1
+kind: RedisSentinel
 metadata:
-  name: redis-cluster
+  name: redis-sentinel
 spec:
   clusterSize: 3
-  clusterVersion: v7
-  securityContext:
-    runAsUser: 1000
-    fsGroup: 1000
-  persistenceEnabled: true
+  redisSentinelConfig: 
+    redisReplicationName : redis-replication
   kubernetesConfig:
-    image: quay.io/opstree/redis:v7.0.5
-    imagePullPolicy: Always
-  storage:
-    volumeClaimTemplate:
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 1Gi
+    image: quay.io/opstree/redis-sentinel:v7.0.12 
+    imagePullPolicy: IfNotPresent
+    resources:
+      requests:
+        cpu: 101m
+        memory: 128Mi
+      limits:
+        cpu: 101m
+        memory: 128Mi
