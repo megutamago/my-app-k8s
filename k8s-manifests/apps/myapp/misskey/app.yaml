@@ -59,6 +59,8 @@ spec:
               containerPort: 3000
               protocol: TCP
           volumeMounts:
+            - name: misskey-files
+              mountPath: /misskey/files
             - name: misskey-config
               mountPath: /misskey/.config
           resources:
@@ -79,6 +81,14 @@ spec:
             items:
               - key: default.yml
                 path: default.yml
+  volumeClaimTemplates:
+  - metadata:
+      name: misskey-files
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 20Gi
 ---
 apiVersion: v1
 kind: Service
