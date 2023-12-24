@@ -46,11 +46,8 @@ spec:
 # export PGSSLMODE=require
 # kd pod -n misskey postgres-cluster-0 | grep IP
 # psql -U postgres -h 10.0.2.11
-# k get pod -n misskey
 
 # ALTER ROLE "misskey-user" WITH PASSWORD 'misskey-pass';
 # export PGPASSWORD=misskey-pass
 # export PGSSLMODE=require
 # psql -U misskey-user -d misskey -h 10.0.2.11
-
-# k delete pod -n misskey postgres-cluster-0 
