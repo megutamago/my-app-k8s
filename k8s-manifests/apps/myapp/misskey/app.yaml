@@ -82,6 +82,9 @@ spec:
             items:
               - key: default.yml
                 path: default.yml
+        - name: misskey-files
+          persistentVolumeClaim:
+            claimName: misskey-files
   volumeClaimTemplates:
   - metadata:
       name: misskey-files
