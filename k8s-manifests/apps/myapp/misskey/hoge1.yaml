@@ -32,7 +32,7 @@ spec:
             - "redis-server"
           args:
             - "--protected-mode"
-            - "no"
+            - "yes"
           ports:
             - containerPort: 6379
           volumeMounts:
