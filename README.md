@@ -1,4 +1,6 @@
 # my-app-k8s
+###  CHART VERSION   APP VERSION
+### helm search repo ot-helm
 
 kubectl run -i --tty --rm debug --image=alpine --restart=Never -- /bin/sh -c "apk add --no-cache busybox-extras && telnet example.com 80"
 
