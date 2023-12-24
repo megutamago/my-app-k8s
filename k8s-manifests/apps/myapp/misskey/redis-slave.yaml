@@ -7,7 +7,7 @@ data:
     port 6379
     bind 0.0.0.0 ::1
     masterauth password
-    replicaof redis-master-service.misskey 6379
+    replicaof redis-master-service.misskeya 6379
 ---
 apiVersion: apps/v1
 kind: StatefulSet
