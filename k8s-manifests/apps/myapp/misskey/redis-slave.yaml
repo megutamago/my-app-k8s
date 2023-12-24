@@ -8,7 +8,6 @@ data:
     bind 0.0.0.0 ::1
     masterauth password
     replicaof redis-master-service.misskey 6379
-    replica-read-only yes
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -28,13 +27,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: redis:6
-          # command:
-          #   - "redis-server"
-          # args:
-          #   - "--slaveof"
-          #   - "service-redis-master.misskey.svc.cluster.local"
-          #   - "6379"
+          image: redis:7
           ports:
             - containerPort: 6379
           volumeMounts:
