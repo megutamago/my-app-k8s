@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-sentinel-config
+data:
+  redis.conf: |
+    port 26379
+    sentinel monitor mymaster redis-master-service.misskey 6379 2
+    sentinel down-after-milliseconds mymaster 5000
+    sentinel parallel-syncs mymaster 1
+    sentinel failover-timeout mymaster 60000
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis-sentinel
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: redis
+      role: sentinel
+  template:
+    metadata:
+      labels:
+        app: redis
+        role: sentinel
+    spec:
+      containers:
+        - name: redis-sentinel
+          image: redis:7
+          resources:
+            requests:
+              memory: 50Mi
+              cpu: 50m
+            limits:
+              memory: 500Mi
+              cpu: 200m
+          ports:
+            - name: redis-sentinel
+              containerPort: 26379
+              protocol: TCP
+          volumeMounts:
+            - name: sentinel-config
+              mountPath: "/etc/redis"
+              readOnly: true
+      volumes:
+        - name: sentinel-config
+          configMap:
+            name: redis-sentinel-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+spec:
+  ports:
+    - port: 26379
+      targetPort: 26379
+      protocol: TCP
+  selector:
+    app: redis-sentinel

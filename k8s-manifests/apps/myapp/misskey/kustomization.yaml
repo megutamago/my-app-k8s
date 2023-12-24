@@ -5,4 +5,5 @@ resources:
   - nginx.yaml
   - app.yaml
   - postgres.yaml
-  - redis.yaml
+  - redis-master.yaml
+  - redis-sentinel.yaml
