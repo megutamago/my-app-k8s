@@ -5,31 +5,34 @@ metadata:
 data:
   redis-sentinel.conf: |
     port 26379
-    sentinel monitor mymaster redis-master 6379 2
+    sentinel monitor mymaster redis-master-svc.misskey 6379 2
     sentinel down-after-milliseconds mymaster 5000
     sentinel parallel-syncs mymaster 1
     sentinel failover-timeout mymaster 60000
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: redis-sentinel
 spec:
+  serviceName: redis-sentinel-svc
   replicas: 3
   selector:
     matchLabels:
-      app: redis-sentinel
+      app: redis
+      role: sentinel
   template:
     metadata:
       labels:
-        app: redis-sentinel
+        app: redis
+        role: sentinel
     spec:
       containers:
         - name: redis-sentinel
           image: redis:7
           command:
             - redis-sentinel
-            - "/etc/redis-sentinel/redis-sentinel.conf"
+            - "/etc/redis/redis-sentinel.conf"
           resources:
             requests:
               memory: 50Mi
@@ -42,11 +45,11 @@ spec:
               containerPort: 26379
               protocol: TCP
           volumeMounts:
-            - name: config
-              mountPath: "/etc/redis-sentinel"
+            - name: sentinel-config
+              mountPath: "/etc/redis"
               readOnly: true
       volumes:
-        - name: config
+        - name: sentinel-config
           configMap:
             name: redis-sentinel-config
 ---
