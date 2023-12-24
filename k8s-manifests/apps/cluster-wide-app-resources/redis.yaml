@@ -21,29 +21,3 @@ spec:
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: redis-cluster
-  namespace: argocd
-spec:
-  project: cluster-wide-apps
-  source:
-    chart: redis-cluster
-    repoURL: https://ot-container-kit.github.io/helm-charts
-    targetRevision: 0.15.9
-    helm:
-      releaseName: redis-cluster
-      values: |
-        redisCluster:
-          clusterSize: 3
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: redis-operator
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
