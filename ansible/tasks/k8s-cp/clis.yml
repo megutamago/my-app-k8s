@@ -42,3 +42,4 @@
   apt:
     name:
     - postgresql-15
+    - redis
