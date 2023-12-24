@@ -35,6 +35,16 @@ spec:
             - name: master-config
               mountPath: "/etc/redis"
               readOnly: true
+          livenessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 5
+            periodSeconds: 5
       volumes:
         - name: master-config
           configMap:
