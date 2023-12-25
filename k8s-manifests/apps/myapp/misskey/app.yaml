@@ -17,6 +17,12 @@ data:
     redis:
       host: redis-service.misskey
       port: 6379
+    meilisearch:
+      host: meilisearch.misskey
+      port: 7700
+      apiKey: 'Yl5NDX7ft63MDoSqTsseHxNcToFpTGOC'
+      ssl: false
+      index: 'example.tld'
     id: 'aidx'
     proxyBypassHosts:
       - api.deepl.com

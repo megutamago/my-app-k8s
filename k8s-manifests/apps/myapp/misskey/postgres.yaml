@@ -3,6 +3,13 @@ kind: postgresql
 metadata:
   name: postgres-cluster
 spec:
+  env:
+    - name: POSTGRES_DB
+      value: misskey
+    - name: POSTGRES_USER
+      value: misskey-user
+    - name: POSTGRES_PASSWORD
+      value: misskey-pass
   teamId: "acid"
   volume:
     size: 1Gi
