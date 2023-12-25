@@ -71,7 +71,7 @@ spec:
             whenDeleted: Retain
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: redis
+    namespace: misskey
   syncPolicy:
     automated:
       prune: true

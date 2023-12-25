@@ -28,7 +28,9 @@ spec:
       server: https://kubernetes.default.svc
     - namespace: 'n8n'
       server: https://kubernetes.default.svc
-    - namespace: 'redis'
+    - namespace: 'misskey'
+      server: https://kubernetes.default.svc
+    - namespace: 'private-isu'
       server: https://kubernetes.default.svc
   clusterResourceWhitelist:
     - group: '*'
