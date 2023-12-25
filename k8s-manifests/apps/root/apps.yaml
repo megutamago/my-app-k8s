@@ -76,17 +76,6 @@ metadata:
   name: cluster-myapp-resources
   namespace: argocd
 spec:
-  generators:
-    - git:
-        repoURL: https://github.com/megutamago/my-app-k8s
-        revision: main
-        directories:
-          - path: k8s-manifests/apps/myapp/cluster-myapp-resources
-  template:
-    metadata:
-      # 各Application が argocd namespace に配置されるため prefix した方が安全
-      name: "test-{{path.basenameNormalized}}"
-      namespace: argocd
   project: argocd-root
   source:
     repoURL: https://github.com/megutamago/my-app-k8s
@@ -94,7 +83,7 @@ spec:
     path: k8s-manifests/apps/myapp/cluster-myapp-resources
   destination:
     server: https://kubernetes.default.svc
-    namespace: 'cluster-wide-apps'
+    namespace: 'cluster-myapp-apps'
   syncPolicy:
     automated:
       prune: true
