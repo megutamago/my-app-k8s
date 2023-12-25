@@ -68,36 +68,6 @@ spec:
         factor: 2
         maxDuration: 2m
 ---
-# See the following file for documentations
-# https://github.com/argoproj/argo-cd/blob/a6c664b2aefc513936e9f56c1a373bdbddcd5727/docs/operator-manual/application.yaml
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: cluster-myapp-resources
-  namespace: argocd
-spec:
-  project: argocd-root
-  source:
-    repoURL: https://github.com/megutamago/my-app-k8s
-    targetRevision: main
-    path: k8s-manifests/apps/myapp/cluster-myapp-resources
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: 'cluster-myapp-apps'
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-      allowEmpty: true
-    syncOptions:
-      - CreateNamespace=true
-    retry:
-      limit: -1
-      backoff:
-        duration: 5s
-        factor: 2
-        maxDuration: 2m
----
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
