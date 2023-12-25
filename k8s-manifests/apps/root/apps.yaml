@@ -75,14 +75,19 @@ kind: Application
 metadata:
   name: cluster-myapp-resources
   namespace: argocd
-
 spec:
-  project: argocd-root
+  generators:
+    - git:
+        repoURL: https://github.com/megutamago/my-app-k8s
+        revision: main
+        directories:
+          - path: k8s-manifests/apps/myapp/cluster-myapp-resources
   template:
     metadata:
       # 各Application が argocd namespace に配置されるため prefix した方が安全
-      name: "cluster-myapp-{{path.basenameNormalized}}"
+      name: "test-{{path.basenameNormalized}}"
       namespace: argocd
+  project: argocd-root
   source:
     repoURL: https://github.com/megutamago/my-app-k8s
     targetRevision: main
