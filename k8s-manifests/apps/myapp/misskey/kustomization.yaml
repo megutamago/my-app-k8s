@@ -6,3 +6,4 @@ resources:
   - app.yaml
   - postgres.yaml
   - redis.yaml
+  - meilisearch.yaml
