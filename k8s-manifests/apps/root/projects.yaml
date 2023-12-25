@@ -28,7 +28,7 @@ spec:
       server: https://kubernetes.default.svc
     - namespace: 'n8n'
       server: https://kubernetes.default.svc
-    - namespace: 'redis-operator'
+    - namespace: 'redis'
       server: https://kubernetes.default.svc
   clusterResourceWhitelist:
     - group: '*'
