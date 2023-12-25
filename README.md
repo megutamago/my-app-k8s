@@ -1,4 +1,12 @@
 # my-app-k8s
+
+```
+restart policy 3つ
+--restart=AlwaysならDeploymentが作成される
+--restart=OnFailureならJobがが作成される
+--restart=Neverなら通常のpodが作成される
+```
+
 ###  CHART VERSION   APP VERSION
 ### helm search repo ot-helm
 
