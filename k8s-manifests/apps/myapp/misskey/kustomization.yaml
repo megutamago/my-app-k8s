@@ -5,5 +5,5 @@ resources:
   - nginx.yaml
   - app.yaml
   - postgres.yaml
-  - redis-test.yaml
+  - redis.yaml
   - meilisearch.yaml
