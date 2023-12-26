@@ -1,24 +1,3 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: redis-service
-spec:
-  type: NodePort
-  ports:
-  - port: 6379
-    targetPort: 6379
-    nodePort: 30051
-    protocol: TCP
-  selector:
-    app.kubernetes.io/component: node
-    app.kubernetes.io/instance: redis
-    app.kubernetes.io/name: redis
----
-
-################################
-# Generated from Helm Template #
-################################
-
 ---
 # Source: redis/templates/serviceaccount.yaml
 apiVersion: v1
@@ -33,22 +12,6 @@ metadata:
     app.kubernetes.io/name: redis
     app.kubernetes.io/version: 7.2.3
     helm.sh/chart: redis-18.6.1
----
-# Source: redis/templates/secret.yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: redis
-  namespace: "default"
-  labels:
-    app.kubernetes.io/instance: redis
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: redis
-    app.kubernetes.io/version: 7.2.3
-    helm.sh/chart: redis-18.6.1
-type: Opaque
-data:
-  redis-password: "ODZvd3FJQ0JEMg=="
 ---
 # Source: redis/templates/configmap.yaml
 apiVersion: v1
@@ -148,8 +111,6 @@ data:
     fi
   ping_sentinel.sh: |-
     #!/bin/bash
-    [[ -f $REDIS_PASSWORD_FILE ]] && export REDIS_PASSWORD="$(< "${REDIS_PASSWORD_FILE}")"
-    [[ -n "$REDIS_PASSWORD" ]] && export REDISCLI_AUTH="$REDIS_PASSWORD"
     response=$(
       timeout -s 15 $1 \
       redis-cli \
@@ -294,9 +255,9 @@ data:
     SENTINEL_SERVICE_PORT=$(get_port "redis" "SENTINEL")
     validate_quorum() {
         if is_boolean_yes "$REDIS_TLS_ENABLED"; then
-            quorum_info_command="REDISCLI_AUTH="\$REDIS_PASSWORD" redis-cli -h $REDIS_SERVICE -p $SENTINEL_SERVICE_PORT --tls --cert ${REDIS_TLS_CERT_FILE} --key ${REDIS_TLS_KEY_FILE} --cacert ${REDIS_TLS_CA_FILE} sentinel master mymaster"
+            quorum_info_command="redis-cli -h $REDIS_SERVICE -p $SENTINEL_SERVICE_PORT --tls --cert ${REDIS_TLS_CERT_FILE} --key ${REDIS_TLS_KEY_FILE} --cacert ${REDIS_TLS_CA_FILE} sentinel master mymaster"
         else
-            quorum_info_command="REDISCLI_AUTH="\$REDIS_PASSWORD" redis-cli -h $REDIS_SERVICE -p $SENTINEL_SERVICE_PORT sentinel master mymaster"
+            quorum_info_command="redis-cli -h $REDIS_SERVICE -p $SENTINEL_SERVICE_PORT sentinel master mymaster"
         fi
         info "about to run the command: $quorum_info_command"
         eval $quorum_info_command | grep -Fq "s_down"
@@ -304,9 +265,9 @@ data:
 
     trigger_manual_failover() {
         if is_boolean_yes "$REDIS_TLS_ENABLED"; then
-            failover_command="REDISCLI_AUTH="\$REDIS_PASSWORD" redis-cli -h $REDIS_SERVICE -p $SENTINEL_SERVICE_PORT --tls --cert ${REDIS_TLS_CERT_FILE} --key ${REDIS_TLS_KEY_FILE} --cacert ${REDIS_TLS_CA_FILE} sentinel failover mymaster"
+            failover_command="redis-cli -h $REDIS_SERVICE -p $SENTINEL_SERVICE_PORT --tls --cert ${REDIS_TLS_CERT_FILE} --key ${REDIS_TLS_KEY_FILE} --cacert ${REDIS_TLS_CA_FILE} sentinel failover mymaster"
         else
-            failover_command="REDISCLI_AUTH="\$REDIS_PASSWORD" redis-cli -h $REDIS_SERVICE -p $SENTINEL_SERVICE_PORT sentinel failover mymaster"
+            failover_command="redis-cli -h $REDIS_SERVICE -p $SENTINEL_SERVICE_PORT sentinel failover mymaster"
         fi
 
         info "about to run the command: $failover_command"
@@ -315,9 +276,9 @@ data:
 
     get_sentinel_master_info() {
         if is_boolean_yes "$REDIS_TLS_ENABLED"; then
-            sentinel_info_command="REDISCLI_AUTH="\$REDIS_PASSWORD" timeout 90 redis-cli -h $REDIS_SERVICE -p $SENTINEL_SERVICE_PORT --tls --cert ${REDIS_TLS_CERT_FILE} --key ${REDIS_TLS_KEY_FILE} --cacert ${REDIS_TLS_CA_FILE} sentinel get-master-addr-by-name mymaster"
+            sentinel_info_command="timeout 90 redis-cli -h $REDIS_SERVICE -p $SENTINEL_SERVICE_PORT --tls --cert ${REDIS_TLS_CERT_FILE} --key ${REDIS_TLS_KEY_FILE} --cacert ${REDIS_TLS_CA_FILE} sentinel get-master-addr-by-name mymaster"
         else
-            sentinel_info_command="REDISCLI_AUTH="\$REDIS_PASSWORD" timeout 90 redis-cli -h $REDIS_SERVICE -p $SENTINEL_SERVICE_PORT sentinel get-master-addr-by-name mymaster"
+            sentinel_info_command="timeout 90 redis-cli -h $REDIS_SERVICE -p $SENTINEL_SERVICE_PORT sentinel get-master-addr-by-name mymaster"
         fi
 
         info "about to run the command: $sentinel_info_command"
@@ -391,8 +352,7 @@ data:
     if [[ "$REDIS_REPLICATION_MODE" = "slave" ]] || [[ "$REDIS_REPLICATION_MODE" = "replica" ]]; then
         ARGS+=("--replicaof" "${REDIS_MASTER_HOST}" "${REDIS_MASTER_PORT_NUMBER}")
     fi
-    ARGS+=("--requirepass" "${REDIS_PASSWORD}")
-    ARGS+=("--masterauth" "${REDIS_MASTER_PASSWORD}")
+    ARGS+=("--protected-mode" "no")
     ARGS+=("--include" "/opt/bitnami/redis/etc/replica.conf")
     ARGS+=("--include" "/opt/bitnami/redis/etc/redis.conf")
     exec redis-server "${ARGS[@]}"
@@ -458,9 +418,9 @@ data:
     }
     get_sentinel_master_info() {
         if is_boolean_yes "$REDIS_SENTINEL_TLS_ENABLED"; then
-            sentinel_info_command="REDISCLI_AUTH="\$REDIS_PASSWORD" timeout 90 redis-cli -h $REDIS_SERVICE -p $SENTINEL_SERVICE_PORT --tls --cert ${REDIS_SENTINEL_TLS_CERT_FILE} --key ${REDIS_SENTINEL_TLS_KEY_FILE} --cacert ${REDIS_SENTINEL_TLS_CA_FILE} sentinel get-master-addr-by-name mymaster"
+            sentinel_info_command="timeout 90 redis-cli -h $REDIS_SERVICE -p $SENTINEL_SERVICE_PORT --tls --cert ${REDIS_SENTINEL_TLS_CERT_FILE} --key ${REDIS_SENTINEL_TLS_KEY_FILE} --cacert ${REDIS_SENTINEL_TLS_CA_FILE} sentinel get-master-addr-by-name mymaster"
         else
-            sentinel_info_command="REDISCLI_AUTH="\$REDIS_PASSWORD" timeout 90 redis-cli -h $REDIS_SERVICE -p $SENTINEL_SERVICE_PORT sentinel get-master-addr-by-name mymaster"
+            sentinel_info_command="timeout 90 redis-cli -h $REDIS_SERVICE -p $SENTINEL_SERVICE_PORT sentinel get-master-addr-by-name mymaster"
         fi
         info "about to run the command: $sentinel_info_command"
         retry_while "eval $sentinel_info_command" 2 5
@@ -501,8 +461,6 @@ data:
     fi
 
     cp /opt/bitnami/redis-sentinel/mounted-etc/sentinel.conf /opt/bitnami/redis-sentinel/etc/sentinel.conf
-    printf "\nsentinel auth-pass %s %s" "mymaster" "$REDIS_PASSWORD" >> /opt/bitnami/redis-sentinel/etc/sentinel.conf
-    printf "\nrequirepass %s" "$REDIS_PASSWORD" >> /opt/bitnami/redis-sentinel/etc/sentinel.conf
     printf "\nsentinel myid %s" "$(host_id "$HOSTNAME")" >> /opt/bitnami/redis-sentinel/etc/sentinel.conf
 
     if [[ -z "$REDIS_MASTER_HOST" ]] || [[ -z "$REDIS_MASTER_PORT_NUMBER" ]]
@@ -574,9 +532,7 @@ data:
 
     REDIS_SERVICE="redis.default.svc.cluster.local"
 
-    # redis-cli automatically consumes credentials from the REDISCLI_AUTH variable
-    [[ -n "$REDIS_PASSWORD" ]] && export REDISCLI_AUTH="$REDIS_PASSWORD"
-    [[ -f "$REDIS_PASSWORD_FILE" ]] && export REDISCLI_AUTH="$(< "${REDIS_PASSWORD_FILE}")"
+    
 
     if ! sentinel_failover_finished; then
         echo "I am the master pod and you are stopping me. Starting sentinel failover"
@@ -618,9 +574,9 @@ data:
 
     run_sentinel_command() {
         if is_boolean_yes "$REDIS_SENTINEL_TLS_ENABLED"; then
-            redis-cli -h "$REDIS_SERVICE" -p "$REDIS_SENTINEL_PORT" --tls --cert "$REDIS_SENTINEL_TLS_CERT_FILE" --key "$REDIS_SENTINEL_TLS_KEY_FILE" --cacert "$REDIS_SENTINEL_TLS_CA_FILE" sentinel "$@"
+            env -u REDISCLI_AUTH redis-cli -h "$REDIS_SERVICE" -p "$REDIS_SENTINEL_PORT" --tls --cert "$REDIS_SENTINEL_TLS_CERT_FILE" --key "$REDIS_SENTINEL_TLS_KEY_FILE" --cacert "$REDIS_SENTINEL_TLS_CA_FILE" sentinel "$@"
         else
-            redis-cli -h "$REDIS_SERVICE" -p "$REDIS_SENTINEL_PORT" sentinel "$@"
+            env -u REDISCLI_AUTH redis-cli -h "$REDIS_SERVICE" -p "$REDIS_SENTINEL_PORT" sentinel "$@"
         fi
     }
     sentinel_failover_finished() {
@@ -743,9 +699,9 @@ spec:
         app.kubernetes.io/component: node
       annotations:
         checksum/configmap: 68cb13b4ebd92063ad31a4b3c60b5a55bcb547e56126f8c09d78dd57680df349
-        checksum/health: 1eace71641fb5bd753e90012419e82c10b1180d694f91d83743b727a5aacca73
-        checksum/scripts: 7f6cce037e3c4d999e8888d1266c28ecf3c965cd86540b44c4c3eb31b6484923
-        checksum/secret: cd0b58c7d08bbaba7f30644e2a801add59dae721b3c291c490a752312cbace04
+        checksum/health: d626f1cf63e2ea3e4d4206c57ff10b4eba5530de26431ac09f484ae8d13d3196
+        checksum/scripts: 0a98428206bbf8fe43a5c422adfe680f973b8fc412329c20c95710e83fab9481
+        checksum/secret: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
     spec:
       
       securityContext:
@@ -801,17 +757,7 @@ spec:
             - name: REDIS_MASTER_PORT_NUMBER
               value: "6379"
             - name: ALLOW_EMPTY_PASSWORD
-              value: "no"
-            - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: redis
-                  key: redis-password
-            - name: REDIS_MASTER_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: redis
-                  key: redis-password
+              value: "yes"
             - name: REDIS_TLS_ENABLED
               value: "no"
             - name: REDIS_PORT
@@ -904,11 +850,8 @@ spec:
           env:
             - name: BITNAMI_DEBUG
               value: "false"
-            - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: redis
-                  key: redis-password
+            - name: ALLOW_EMPTY_PASSWORD
+              value: "yes"
             - name: REDIS_SENTINEL_TLS_ENABLED
               value: "no"
             - name: REDIS_SENTINEL_PORT

@@ -5,3 +5,4 @@ resources:
   - nginx.yaml
   - app.yaml
   - mysql.yaml
+  - memcached.yaml

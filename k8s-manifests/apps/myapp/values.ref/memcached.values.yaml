@@ -1,0 +1,8 @@
+# Exe Command
+#
+# helm template memcached bitnami/memcached --version 6.7.1 --kube-version 1.28.3 -f values.yaml > manifest.yaml
+#
+# ref: https://artifacthub.io/packages/helm/bitnami/memcached
+
+architecture: high-availability
+replicaCount: 2
