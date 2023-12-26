@@ -15,7 +15,7 @@ data:
       user: misskey-user
     dbReplications: false
     redis:
-      host: redis-service.misskey
+      host: redis.misskey
       port: 6379
     meilisearch:
       host: meilisearch.misskey
