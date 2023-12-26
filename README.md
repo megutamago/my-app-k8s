@@ -1,5 +1,34 @@
 # my-app-k8s
 
+### Chartのスケルトン生成
+```
+$ helm create redis
+$ helm install . --debug --dry-run
+
+```
+
+# helm template RELEASE_NAME CHART_NAME > manifest.yaml
+### helm template redis bitnami/redis > manifest.yaml
+### helm template redis bitnami/redis --version 18.6.1 --kube-version 1.28.3 > manifest.yaml
+```
+$ helm template redis bitnami/redis --version 18.6.1 --kube-version 1.28.3 > manifest.yaml
+$ helm fetch bitnami/redis --version 18.6.1
+$ helm template redis-18.6.1.tgz | grep namespace
+$ helm template redis-18.6.1.tgz --namespace=hoge | grep namespace
+
+$ helm template redis bitnami/redis --version 18.6.1 --kube-version 1.28.3 -f values.yaml > manifest.yaml
+```
+
+
+```
+$ helm init --client-only
+$ helm fetch stable/redis --version 1.0.2
+$ file redis-1.0.2.tgz
+$ helm template redis-1.0.2.tgz --kube-version 1.8.3
+
+```
+
+
 ```
 restart policy 3つ
 --restart=AlwaysならDeploymentが作成される

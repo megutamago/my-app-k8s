@@ -41,5 +41,6 @@
 - name: apt
   apt:
     name:
+    - tree
     - postgresql-15
     - redis
