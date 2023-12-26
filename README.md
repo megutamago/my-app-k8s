@@ -1,5 +1,8 @@
 # my-app-k8s
 
+### k8s-sentry ??
+https://github.com/wichert/k8s-sentry
+
 ### Chartのスケルトン生成
 ```
 $ helm create redis
