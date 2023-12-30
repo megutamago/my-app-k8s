@@ -12,6 +12,9 @@ spec:
     helm:
       releaseName: sentry
       values: |
+        sentry:
+          worker:
+            replicas: 1
         kafka:
           replicaCount: 1
         clickhouse:
