@@ -8,7 +8,7 @@ spec:
   source:
     chart: sentry
     repoURL: https://sentry-kubernetes.github.io/charts
-    targetRevision: 20.12.1
+    targetRevision: 19.3.0
     helm:
       releaseName: sentry
       values: |
@@ -27,6 +27,8 @@ spec:
           replicaCount: 2
         rabbitmq:
           replicaCount: 2
+        nginx:
+          enabled: false
   destination:
     server: https://kubernetes.default.svc
     namespace: sentry
