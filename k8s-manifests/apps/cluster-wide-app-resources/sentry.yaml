@@ -14,19 +14,23 @@ spec:
       values: |
         sentry:
           worker:
-            replicas: 1
+            replicas: 2
         kafka:
-          replicaCount: 1
+          replicaCount: 2
+          zookeeper:
+            enabled: false
+          kraft:
+            enabled: true
         clickhouse:
           clickhouse:
-            replicas: 1
+            replicas: 2
         redis:
           replica:
-            replicaCount: 1
+            replicaCount: 2
         zookeeper:
-          replicaCount: 1
+          replicaCount: 2
         rabbitmq:
-          replicaCount: 1
+          replicaCount: 2
   destination:
     server: https://kubernetes.default.svc
     namespace: sentry
