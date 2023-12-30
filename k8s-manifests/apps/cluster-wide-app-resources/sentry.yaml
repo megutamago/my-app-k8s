@@ -17,10 +17,6 @@ spec:
             replicas: 2
         kafka:
           replicaCount: 2
-          zookeeper:
-            enabled: false
-          kraft:
-            enabled: true
         clickhouse:
           clickhouse:
             replicas: 2
