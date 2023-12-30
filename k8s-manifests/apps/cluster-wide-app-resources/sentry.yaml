@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sentry
+  namespace: argocd
+spec:
+  project: cluster-wide-apps
+  source:
+    chart: sentry
+    repoURL: https://sentry-kubernetes.github.io/charts
+    targetRevision: 20.12.1
+    helm:
+      releaseName: sentry
+      values:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: sentry
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
