@@ -7,7 +7,7 @@ var:
       - common/k8s.yml
       - k8s-cp/setup.yml
       - k8s-cp/cilium.yml
-      - k8s-cp/argocd.yml
+      # - k8s-cp/argocd.yml
       - k8s-cp/other-k8s-app.yml
       # - k8s-cp/clis.yml
       - common/parameter.yml
