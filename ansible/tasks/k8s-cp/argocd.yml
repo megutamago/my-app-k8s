@@ -1,9 +1,6 @@
 - name: shell
   shell: helm repo add argo https://argoproj.github.io/argo-helm
 
-- name: shell
-  shell: helm init --client-only
-
 - name: Execute helm
   shell: |
     helm install argocd argo/argo-cd \
