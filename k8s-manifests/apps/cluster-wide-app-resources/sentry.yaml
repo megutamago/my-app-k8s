@@ -11,7 +11,17 @@ spec:
     targetRevision: 20.12.1
     helm:
       releaseName: sentry
-      values:
+      values: |
+        clickhouse:
+          clickhouse:
+            replicas: 1
+        redis:
+          replica:
+            replicaCount: 1
+        zookeeper:
+          replicaCount: 1
+        rabbitmq:
+          replicaCount: 1
   destination:
     server: https://kubernetes.default.svc
     namespace: sentry
