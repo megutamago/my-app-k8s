@@ -1,3 +1,8 @@
+###########################################################################################################
+# helm template redis bitnami/redis --version 18.6.1 --kube-version 1.28.3 -f values.yaml > manifest.yaml #
+# ref: https://artifacthub.io/packages/helm/bitnami/redis                                                 #
+###########################################################################################################
+
 ---
 # Source: redis/templates/serviceaccount.yaml
 apiVersion: v1

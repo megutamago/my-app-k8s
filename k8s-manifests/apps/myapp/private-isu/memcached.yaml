@@ -1,3 +1,9 @@
+##################################################################################################################
+# helm template memcached bitnami/memcached --version 6.7.2 --kube-version 1.28.3 -f values.yaml > manifest.yaml #
+# ref: https://artifacthub.io/packages/helm/bitnami/memcached                                                    #
+##################################################################################################################
+
+---
 apiVersion: v1
 kind: Service
 metadata:
