@@ -69,7 +69,3 @@
   file:
     path: /root/postgres-operator-ui-lb.yaml
     state: absent
-
-# k8s-sentry
-- name: shell
-  shell: kubectl create namespace k8s-sentry
