@@ -1,4 +1,4 @@
-# ref:
+# ref: https://github.com/catatsuy/private-isu
 
 ---
 apiVersion: v1
@@ -33,11 +33,10 @@ spec:
     spec:
       containers:
       - name: private-isu
-        image: nginx:latest
-        # image: melanmeg/private-isu:0.1
+        image: melanmeg/private-isu-app:1.0
         env:
         - name: ISUCONP_DB_HOST
-          value: mysql
+          value: mysql.private-isu
         - name: ISUCONP_DB_PORT
           value: 3306
         - name: ISUCONP_DB_USER
@@ -47,6 +46,6 @@ spec:
         - name: ISUCONP_DB_NAME
           value: isuconp
         - name: ISUCONP_MEMCACHED_ADDRESS
-          value: memcached:11211
+          value: memcached.private-isu:11211
         ports:
         - containerPort: 3000

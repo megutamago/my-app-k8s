@@ -56,7 +56,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.25.3
+        image: melanmeg/private-isu-nginx:1.0
         ports:
         - containerPort: 80
         volumeMounts:
