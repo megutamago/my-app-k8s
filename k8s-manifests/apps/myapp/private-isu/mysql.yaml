@@ -42,7 +42,6 @@ kind: Service
 metadata:
   name: hogehoge
 spec:
-  type: ClusterIP
   ports:
   - port: 8888
     targetPort: 8888
