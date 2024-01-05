@@ -40,13 +40,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql-hoge
-  labels:
-    app: mysql
+  name: hogehoge
 spec:
   type: ClusterIP
   ports:
   - port: 8888
     targetPort: 8888
-    # nodePort: 38888
     protocol: TCP
