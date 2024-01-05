@@ -30,7 +30,7 @@ spec:
   ports:
   - port: 3306
     targetPort: 3306
-    nodePort: 39999
+    # nodePort: 39999
     protocol: TCP
   selector:
     component: mysqlrouter
