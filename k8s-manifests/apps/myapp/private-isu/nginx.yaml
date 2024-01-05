@@ -92,3 +92,17 @@ spec:
     protocol: TCP
   selector:
     app: nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-hoge
+  labels:
+    app: mysql
+spec:
+  type: NodePort
+  ports:
+  - port: 8888
+    targetPort: 8888
+    nodePort: 38888
+    protocol: TCP
