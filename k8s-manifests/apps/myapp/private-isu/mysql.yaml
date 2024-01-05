@@ -32,12 +32,12 @@ metadata:
   name: mycluster
 spec:
   secretName: mypwds
-  tlsUseSelfSigned: true
+  tlsUseSelfSigned: false
   instances: 2
-  version: 8.2.0
+  version: 8.0.0
   router:
     instances: 1
-    version: 8.2.0
+    version: 8.0.0
   datadirVolumeClaimTemplate:
     accessModes: 
       - ReadWriteOnce
@@ -52,4 +52,4 @@ spec:
         name: mypwds
   mycnf: |
     [mysqld]
-    max_connections=162
+    default_authentication_plugin=mysql_native_password
