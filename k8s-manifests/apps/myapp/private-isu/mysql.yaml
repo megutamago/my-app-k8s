@@ -56,16 +56,10 @@ spec:
   podSpec:
     containers:
     - name: mysql
-      command:
-      - bash
-      - "-c"
-      - |
-        set -ex
-        mkdir /hogehoge
       resources:
         requests:
-          memory: "500Mi"  # adapt to your needs
-          cpu: "250m"      # adapt to your needs
+          memory: "500Mi"
+          cpu: "250m"
         limits:
-          memory: "1024Mi"  # adapt to your needs
+          memory: "1024Mi"
           cpu: "1000m" 
