@@ -1,20 +1,39 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: mysql-service
+#   labels:
+#     app: mysql
+# spec:
+#   type: NodePort
+#   ports:
+#   - port: 3306
+#     targetPort: 3306
+#     nodePort: 30202
+#     protocol: TCP
+#   selector:
+#     component: mysqlrouter
+#     mysql.oracle.com/cluster: mycluster
+#     tier: mysql
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql-service
   labels:
     app: mysql
+    argocd.argoproj.io/instance: private-isu
+  name: mysql-service
+  namespace: private-isu
 spec:
-  type: NodePort
   ports:
-  - port: 3306
-    targetPort: 3306
-    nodePort: 30202
-    protocol: TCP
+    - nodePort: 30202
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
   selector:
     component: mysqlrouter
     mysql.oracle.com/cluster: mycluster
     tier: mysql
+  type: NodePort
 ---
 apiVersion: v1
 kind: Secret
