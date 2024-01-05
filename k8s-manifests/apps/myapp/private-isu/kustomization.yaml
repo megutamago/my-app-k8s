@@ -4,5 +4,5 @@ namespace: private-isu
 resources:
   - nginx.yaml
   - app.yaml
-  # - mysql.yaml
+  - mysql.yaml
   - memcached.yaml
