@@ -22,9 +22,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql-service
-  labels:
-    app: mysql
+  name: mysql-svc
+  # labels:
+  #   app: mysql
 spec:
   type: NodePort
   ports:
