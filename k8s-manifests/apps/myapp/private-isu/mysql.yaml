@@ -20,29 +20,20 @@ spec:
   router:
     instances: 1
 ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: mysql-service
-#   labels:
-#     app: mysql
-# spec:
-#   type: NodePort
-#   ports:
-#   - port: 3306
-#     targetPort: 3306
-#     nodePort: 30202
-#     protocol: TCP
-#   selector:
-#     component: mysqlrouter
-#     mysql.oracle.com/cluster: mycluster
-#     tier: mysql
 apiVersion: v1
 kind: Service
 metadata:
-  name: hogehoge
+  name: mysql-service
+  labels:
+    app: mysql
 spec:
+  type: NodePort
   ports:
-  - port: 8888
-    targetPort: 8888
+  - port: 3306
+    targetPort: 3306
+    nodePort: 30222
     protocol: TCP
+  selector:
+    component: mysqlrouter
+    mysql.oracle.com/cluster: mycluster
+    tier: mysql
