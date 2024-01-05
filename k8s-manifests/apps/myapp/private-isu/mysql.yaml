@@ -53,3 +53,19 @@ spec:
   mycnf: |
     [mysqld]
     default_authentication_plugin=mysql_native_password
+  podSpec:
+    containers:
+    - name: mysql
+      command:
+      - bash
+      - "-c"
+      - |
+        set -ex
+        mkdir /hogehoge
+      resources:
+        requests:
+          memory: "500Mi"  # adapt to your needs
+          cpu: "250m"      # adapt to your needs
+        limits:
+          memory: "1024Mi"  # adapt to your needs
+          cpu: "1000m" 
