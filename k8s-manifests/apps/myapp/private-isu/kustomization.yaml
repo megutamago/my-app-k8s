@@ -6,3 +6,4 @@ resources:
   - app.yaml
   - mysql.yaml
   - memcached.yaml
+  - job.yaml
