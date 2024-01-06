@@ -34,10 +34,10 @@ spec:
   secretName: mypwds
   tlsUseSelfSigned: false
   instances: 2
-  version: 8.0.27
+  version: 8.2.0
   router:
     instances: 1
-    version: 8.0.27
+    version: 8.2.0
   datadirVolumeClaimTemplate:
     accessModes: 
       - ReadWriteOnce
@@ -55,13 +55,13 @@ spec:
     default_authentication_plugin=mysql_native_password
     read_only = 0
     super_read_only = 0
-  # podSpec:
-  #   containers:
-  #   - name: mysql
-  #     resources:
-  #       requests:
-  #         memory: "500Mi"
-  #         cpu: "250m"
-  #       limits:
-  #         memory: "1024Mi"
-  #         cpu: "1000m" 
+  podSpec:
+    containers:
+    - name: mysql
+      resources:
+        requests:
+          memory: "500Mi"
+          cpu: "250m"
+        limits:
+          memory: "1024Mi"
+          cpu: "1000m" 
