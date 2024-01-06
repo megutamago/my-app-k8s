@@ -72,7 +72,7 @@ spec:
           name: nginx
       - name: isu
         configMap:
-          name: isu
+          name: nginx
 ---
 apiVersion: v1
 kind: Service
