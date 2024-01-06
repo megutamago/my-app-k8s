@@ -9,8 +9,8 @@ metadata:
     app: app
 spec:
   ports:
-  - port: 3000
-    targetPort: 3000
+  - port: 8080
+    targetPort: 8080
     protocol: TCP
   selector:
     app: app
@@ -46,4 +46,4 @@ spec:
         - name: ISUCONP_MEMCACHED_ADDRESS
           value: "memcached.private-isu:11211"
         ports:
-        - containerPort: 3000
+        - containerPort: 8080
