@@ -34,7 +34,7 @@ spec:
         image: melanmeg/private-isu-app:1.0
         env:
         - name: ISUCONP_DB_HOST
-          value: "mysql.private-isu"
+          value: "mycluster.private-isu"
         - name: ISUCONP_DB_PORT
           value: "3306"
         - name: ISUCONP_DB_USER
