@@ -36,7 +36,7 @@ spec:
         - name: ISUCONP_DB_HOST
           value: "mycluster.private-isu"
         - name: ISUCONP_DB_PORT
-          value: "3306"
+          value: "6446"
         - name: ISUCONP_DB_USER
           value: "root"
         - name: ISUCONP_DB_PASSWORD
