@@ -70,6 +70,10 @@ curl -v -H "Content-Type: application/json" -XPOST -s "http://192.168.11.144:310
   '{"streams": [{ "stream": { "foo": "bar3" }, "values": [ [ "1702204704000000002", "fizzbuzz4" ] ] }]}'
 
 
+curl -v -H "Content-Type: application/json" -XPOST -s "http://192.168.11.145:3100/loki/api/v1/push" --data-raw \
+  '{"streams": [{ "stream": { "foo": "bar3" }, "values": [ [ "1704626927000000000", "fizzbuzz5" ] ] }]}'
+# ref: https://keisan.casio.jp/exec/system/1526003938
+
 default       alertmanager-kube-prometheus-stack-alertmanager-0           2/2     Running   0          5m53s
 default       kube-prometheus-stack-grafana-8558c9db96-rdhnt              3/3     Running   0          6m6s
 default       kube-prometheus-stack-kube-state-metrics-5c777c7bf5-55gbf   1/1     Running   0          6m6s
